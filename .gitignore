@@ -1,0 +1,28 @@
+# Environment & Secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+.venv*/
+venv/
+ENV/
+env/
+
+# Distribution / Model Cache
+*.egg-info/
+dist/
+build/
+
+# OS / IDE / Logs
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.log

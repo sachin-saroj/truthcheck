@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#111111" />
+  <title>TruthCheck — Fake News Detection &amp; Media Literacy</title>
+  <meta name="description" content="Spot warning signs in suspicious news, verify with external sources, and learn media literacy." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23ffd93d'/%3E%3Ctext x='16' y='23' font-family='Arial Black' font-size='18' fill='%23111' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Caveat:wght@500;700&family=Nunito:wght@400;600;700;800&family=Patrick+Hand&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=9" />
+
+</head>
+<body>
+
+  <div class="dateline">
+    <div class="dateline-inner">
+      <span class="dateline-item">★ Media literacy edition</span>
+      <span class="dateline-item dateline-center" id="dateline"></span>
+      <span class="dateline-item">Check · Verify · Understand ★</span>
+    </div>
+  </div>
+
+  <header class="site-header" id="top">
+    <div class="header-inner">
+      <a class="wordmark sticker-logo" href="#top">Truth<span>Check</span><i class="logo-dot" aria-hidden="true"></i></a>
+      <nav class="nav-links" aria-label="Section navigation">
+        <a href="#detect" data-nav><span class="nav-num">01</span>▶ Detect</a>
+        <a href="#learn" data-nav><span class="nav-num">02</span>✎ Learn</a>
+        <a href="#quiz" data-nav><span class="nav-num">03</span>? Quiz</a>
+        <a href="#history" data-nav><span class="nav-num">04</span>↺ History</a>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>THINK BEFORE YOU SHARE ★ CHECK · VERIFY · UNDERSTAND ★ DON'T FALL FOR FAKES ★ READ BEYOND THE HEADLINE ★ </span>
+      <span>THINK BEFORE YOU SHARE ★ CHECK · VERIFY · UNDERSTAND ★ DON'T FALL FOR FAKES ★ READ BEYOND THE HEADLINE ★ </span>
+    </div>
+  </div>
+
+  <main>
+    <!-- ================= HERO ================= -->
+    <section class="hero">
+      <div class="container hero-inner">
+        <span class="float-sticker fs-1" aria-hidden="true">fake news?</span>
+        <span class="float-sticker fs-2" aria-hidden="true">verify first!</span>
+        <span class="float-sticker fs-3" aria-hidden="true">nope ✕</span>
+
+        <p class="hero-kicker">my rule is —</p>
+        <h1 class="hero-title">
+          <span class="line-box">THINK</span>
+          <em class="hl-yellow">BEFORE</em>
+          <span class="line-box">YOU SHARE</span>
+        </h1>
+        <p class="hero-hand">real-world news &amp; fact verification · live search evidence · Qwen 3.8 AI reasoning</p>
+
+        <div class="hero-cta">
+          <a class="btn btn-chunk btn-yellow" href="#detect">★ Check News / Claim</a>
+          <a class="btn btn-chunk btn-ghost" href="#how">How it works</a>
+        </div>
+        <p class="hero-disclaimer">grounded in real-time internet reporting and AI source comparison.</p>
+
+        <div class="hero-art" aria-hidden="true">
+          <div class="tape tape-blue tape-l" aria-hidden="true"></div>
+          <div class="tape tape-pink tape-r" aria-hidden="true"></div>
+          <img src="{{ url_for('static', filename='img/hero-detective.png') }}" alt="" width="420" height="420" loading="eager" />
+        </div>
+
+        <aside class="hero-method sticky-note" id="how" aria-label="How it works">
+          <div class="tape tape-yellow tape-c" aria-hidden="true"></div>
+          <p class="hand-label">how it works ✎</p>
+          <ol class="method-list">
+            <li><b>01</b> Live Web &amp; News Search</li>
+            <li><b>02</b> Evidence Gathering</li>
+            <li><b>03</b> Qwen 3.8 AI Reasoning</li>
+            <li><b>04</b> Verdict &amp; Fact Summary</li>
+          </ol>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ================= DETECTOR ================= -->
+    <section class="section" id="detect">
+      <div class="container">
+        <header class="section-head reveal">
+          <div class="tab-banner tab-red"><span>★ 01</span> DETECT</div>
+          <div class="section-titles">
+            <h2>Real-world Fact Checker</h2>
+            <p class="hand-sub">News detector &amp; fact verifier — paste any news headline, tweet, viral post, or fact claim…</p>
+          </div>
+
+        </header>
+
+        <div class="detector clip-card reveal">
+          <div class="tape tape-blue tape-l" aria-hidden="true"></div>
+          <div class="tape tape-yellow tape-r" aria-hidden="true"></div>
+          <label class="sr-only" for="newsInput">News text</label>
+          <textarea
+            id="newsInput"
+            rows="7"
+            maxlength="8000"
+            placeholder="Paste any real-world news, headline, claim or viral fact here..."
+          ></textarea>
+          <div class="detector-bar">
+            <span class="mono-meta" id="charCount">0 / 8000</span>
+            <span class="detector-actions">
+              <button type="button" class="btn btn-chunk btn-ghost btn-sm" id="clearBtn">Clear</button>
+              <button type="button" class="btn btn-chunk btn-black" id="analyzeBtn">Verify Facts ★</button>
+            </span>
+          </div>
+          <div class="samples">
+            <span class="hand-label">try —</span>
+            <button type="button" class="marker marker-y" data-example="report">World Cup</button>
+            <button type="button" class="marker marker-p" data-example="suspicious">Free Scheme</button>
+            <button type="button" class="marker marker-g" data-example="social">Tech News</button>
+            <button type="button" class="marker marker-b" data-example="claim">Moon Mission</button>
+          </div>
+          <div class="loading-steps hidden" id="spinner" role="status" aria-live="polite">
+            <span class="loading-line">🔍 Searching live internet &amp; news for real evidence…</span>
+            <span class="loading-line">🤖 Cross-referencing facts with high-speed AI…</span>
+            <span class="loading-line">★ Synthesizing verdict &amp; verified sources…</span>
+          </div>
+          <div class="alert hidden" id="errorBox" role="alert"></div>
+        </div>
+
+        <!-- RESULT CARD — FIXED CONTRACT -->
+        <article class="result hidden tone-ok clip-card" id="resultCard" aria-live="polite">
+          <div class="tape tape-pink tape-c" aria-hidden="true"></div>
+          <header class="result-head">
+            <div class="result-kicker-row">
+              <span class="hand-label">ANALYSIS RESULT ✎</span>
+              <span class="confidence mono-meta" id="confidencePill" title="Confidence score">Confidence: 94%</span>
+            </div>
+            <div class="result-verdict" id="resultVerdict">
+              <span class="verdict-emoji" id="verdictEmoji" aria-hidden="true">🟢</span>
+              <span class="verdict-stamp" id="verdictLabel">SUPPORTED</span>
+            </div>
+            <div class="ai-badge" id="aiBadge">
+              <span>🤖 Qwen 3.8 27B</span> · Live Web Search
+            </div>
+            <div class="api-notice hidden" id="apiNotice">
+              <span>⚡ Tip: Add your <strong>OPENROUTER_API_KEY</strong> in <code>.env</code> to activate Qwen 3.8 AI deep reasoning.</span>
+            </div>
+          </header>
+
+          <!-- WHY SECTION -->
+          <section class="contract-section why-section">
+            <h3 class="contract-heading">WHY?</h3>
+            <p class="why-body" id="resultSummary"></p>
+          </section>
+
+          <!-- EVIDENCE SECTION -->
+          <section class="contract-section evidence-section" id="evidenceBlock">
+            <h3 class="contract-heading">EVIDENCE</h3>
+            <ul class="contract-evidence-list" id="evidenceList"></ul>
+
+            <div class="sources-toggle-container">
+              <button type="button" class="btn btn-chunk btn-ghost btn-sm" id="viewSourcesBtn">
+                <span id="viewSourcesText">View Sources (6)</span> <span id="sourcesToggleIcon">▼</span>
+              </button>
+            </div>
+
+            <!-- COLLAPSIBLE SOURCES GRID -->
+            <div class="sources-drawer hidden" id="sourcesDrawer">
+              <div class="sources-grid" id="sourcesGrid"></div>
+            </div>
+          </section>
+
+          <!-- DIVIDER & FOOTER -->
+          <footer class="contract-footer">
+            <hr class="contract-rule" />
+            <div class="contract-actions">
+              <button type="button" class="btn btn-chunk btn-yellow btn-md" id="checkAnotherBtn">Check Another Story ↺</button>
+            </div>
+          </footer>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ================= LEARN ================= -->
+    <section class="section section-cream" id="learn">
+      <div class="container">
+        <header class="section-head reveal">
+          <div class="tab-banner tab-blue"><span>★ 02</span> LEARN</div>
+          <div class="section-titles">
+            <h2>Media literacy</h2>
+            <p class="hand-sub">six checks before you believe — or share!</p>
+          </div>
+        </header>
+
+        <div class="literacy-grid reveal">
+          <article class="polaroid" style="--rot:-1.6deg">
+            <div class="tape tape-y tape-tl" aria-hidden="true"></div>
+            <div class="polaroid-photo">
+              <img src="{{ url_for('static', filename='img/source_check.jpg') }}" alt="Source Verification" class="polaroid-img" loading="lazy" />
+            </div>
+            <div class="card-header-row">
+              <span class="card-num">01</span>
+              <span class="card-tag-pill pill-amber">🔍 Fake Portal Scam</span>
+            </div>
+            <h3>Source</h3>
+            <p class="card-q">Who published it?</p>
+            <p class="card-brief">Named outlet with an authentic "About Us" and registered domain.</p>
+            <div class="card-more hidden">
+              <div class="case-study-box">
+                <span class="case-study-title">🚨 Real-World Case Study</span>
+                <span class="case-study-name">The Viral ₹5,000 Free Recharge Phish</span>
+                <p class="case-study-text">Viral WhatsApp links like <code>pm-free-recharge.xyz</code> claimed the government is giving free 5G data to all citizens. The page cloned official government colors to harvest user phone numbers and OTPs.</p>
+              </div>
+              <div class="red-flags-box">
+                <div class="red-flags-heading">🚩 Red Flags To Watch</div>
+                <ul class="red-flags-list">
+                  <li>Unusual domain extensions (.xyz, .tk, .click) instead of authentic <code>.gov.in</code> or established media.</li>
+                  <li>Zero physical office address, no listed editor-in-chief, and no grievance officer details.</li>
+                  <li>Typo-squatted domains mimicking top outlets (e.g. <code>timesoflndia.co</code>).</li>
+                </ul>
+              </div>
+              <div class="pro-check-box">
+                <span class="pro-check-label">✅ Pro-Check Action</span>
+                Check official portals (pib.gov.in) or look up domain age on Whois before clicking.
+              </div>
+            </div>
+            <button type="button" class="link-more" aria-expanded="false">Inspect Case Study ➔</button>
+          </article>
+
+          <article class="polaroid" style="--rot:1.2deg">
+            <div class="tape tape-p tape-tr" aria-hidden="true"></div>
+            <div class="polaroid-photo">
+              <img src="{{ url_for('static', filename='img/date_check.jpg') }}" alt="Date Verification" class="polaroid-img" loading="lazy" />
+            </div>
+            <div class="card-header-row">
+              <span class="card-num">02</span>
+              <span class="card-tag-pill pill-red">⏱️ Recycled Panic</span>
+            </div>
+            <h3>Date</h3>
+            <p class="card-q">Is it current?</p>
+            <p class="card-brief">Publish date matches today's breaking news claim.</p>
+            <div class="card-more hidden">
+              <div class="case-study-box">
+                <span class="case-study-title">🚨 Real-World Case Study</span>
+                <span class="case-study-name">Recycled 2020 Lockdown Notice Panic</span>
+                <p class="case-study-text">During recent seasonal weather alerts, a genuine 2020 government disaster circular was recirculated as "Breaking News Today", sparking widespread panic about sudden market and school closures.</p>
+              </div>
+              <div class="red-flags-box">
+                <div class="red-flags-heading">🚩 Red Flags To Watch</div>
+                <ul class="red-flags-list">
+                  <li>Dates cropped out, blurred, or missing from forwarded order copies.</li>
+                  <li>Mentions government officials or committee heads who retired years ago.</li>
+                  <li>Urgent buzzwords: <em>"Emergency: Effective Tomorrow Morning!"</em> without a calendar date.</li>
+                </ul>
+              </div>
+              <div class="pro-check-box">
+                <span class="pro-check-label">✅ Pro-Check Action</span>
+                Reverse image search the order screenshot or filter search results by date (Past 24 hours).
+              </div>
+            </div>
+            <button type="button" class="link-more" aria-expanded="false">Inspect Case Study ➔</button>
+          </article>
+
+          <article class="polaroid" style="--rot:-0.8deg">
+            <div class="tape tape-g tape-tl" aria-hidden="true"></div>
+            <div class="polaroid-photo">
+              <img src="{{ url_for('static', filename='img/author_check.jpg') }}" alt="Author Verification" class="polaroid-img" loading="lazy" />
+            </div>
+            <div class="card-header-row">
+              <span class="card-num">03</span>
+              <span class="card-tag-pill pill-green">✍️ Ghost Writer</span>
+            </div>
+            <h3>Author</h3>
+            <p class="card-q">Who wrote it?</p>
+            <p class="card-brief">A real journalist with verified previous reporting and byline.</p>
+            <div class="card-more hidden">
+              <div class="case-study-box">
+                <span class="case-study-title">🚨 Real-World Case Study</span>
+                <span class="case-study-name">The Anonymous 'Swiss Doctor' Cancer Cure</span>
+                <p class="case-study-text">Viral blog posts attributed a "100% cure for cancer" to a "leading Swiss specialist". The article was unsigned, and the accompanying headshot was a stolen stock photo of a male model.</p>
+              </div>
+              <div class="red-flags-box">
+                <div class="red-flags-heading">🚩 Red Flags To Watch</div>
+                <ul class="red-flags-list">
+                  <li>Generic anonymous bylines: <em>"Admin"</em>, <em>"Staff Reporter"</em>, or <em>"Health Insider"</em>.</li>
+                  <li>Clicking author name leads to 404 or page with zero social presence or portfolio.</li>
+                  <li>Author photo shows AI artifacts (asymmetrical glasses, distorted earlobes).</li>
+                </ul>
+              </div>
+              <div class="pro-check-box">
+                <span class="pro-check-label">✅ Pro-Check Action</span>
+                Search <code>"Author Name" journalist</code> on Google or check Muck Rack / LinkedIn.
+              </div>
+            </div>
+            <button type="button" class="link-more" aria-expanded="false">Inspect Case Study ➔</button>
+          </article>
+
+          <article class="polaroid" style="--rot:1.4deg">
+            <div class="tape tape-b tape-tr" aria-hidden="true"></div>
+            <div class="polaroid-photo">
+              <img src="{{ url_for('static', filename='img/evidence_check.jpg') }}" alt="Deepfake & Evidence Verification" class="polaroid-img" loading="lazy" />
+            </div>
+            <div class="card-header-row">
+              <span class="card-num">04</span>
+              <span class="card-tag-pill pill-blue">🤖 AI Deepfakes</span>
+            </div>
+            <h3>Evidence</h3>
+            <p class="card-q">What supports it?</p>
+            <p class="card-brief">Primary documents, verified recordings, and scientific consensus.</p>
+            <div class="card-more hidden">
+              <div class="case-study-box">
+                <span class="case-study-title">🚨 Real-World Case Study</span>
+                <span class="case-study-name">Deepfake Celebrity Investment Videos</span>
+                <p class="case-study-text">AI-generated deepfakes of high-profile industrial and sports celebrities appeared on Instagram reels, supposedly endorsing a secret automated cryptocurrency trading bot with guaranteed returns.</p>
+              </div>
+              <div class="red-flags-box">
+                <div class="red-flags-heading">🚩 Red Flags To Watch</div>
+                <ul class="red-flags-list">
+                  <li>Mouth movements slightly out-of-sync with speech; robotic vocal tone.</li>
+                  <li>Unrealistic guarantees of 100% returns or instant wealth without risk.</li>
+                  <li>Heavily blurred or pixelated edges around the speaker's face and collar.</li>
+                </ul>
+              </div>
+              <div class="pro-check-box">
+                <span class="pro-check-label">✅ Pro-Check Action</span>
+                Check the person's verified official social media handles or company press room.
+              </div>
+            </div>
+            <button type="button" class="link-more" aria-expanded="false">Inspect Case Study ➔</button>
+          </article>
+
+          <article class="polaroid" style="--rot:-1.2deg">
+            <div class="tape tape-y tape-tl" aria-hidden="true"></div>
+            <div class="polaroid-photo">
+              <img src="{{ url_for('static', filename='img/cross_check.jpg') }}" alt="Cross-Check Verification" class="polaroid-img" loading="lazy" />
+            </div>
+            <div class="card-header-row">
+              <span class="card-num">05</span>
+              <span class="card-tag-pill pill-purple">📡 Viral Rumours</span>
+            </div>
+            <h3>Cross-check</h3>
+            <p class="card-q">Who else reports it?</p>
+            <p class="card-brief">A monumental national event is always covered by multiple news wires.</p>
+            <div class="card-more hidden">
+              <div class="case-study-box">
+                <span class="case-study-title">🚨 Real-World Case Study</span>
+                <span class="case-study-name">"All ATMs Closing For 10 Days" Audio</span>
+                <p class="case-study-text">A viral 40-second voice note circulated on family groups claiming the Reserve Bank was shutting all ATMs nationwide for a week. Citizens rushed to withdraw cash before fact-checkers intervened.</p>
+              </div>
+              <div class="red-flags-box">
+                <div class="red-flags-heading">🚩 Red Flags To Watch</div>
+                <ul class="red-flags-list">
+                  <li>The claim exists exclusively as a forwarded audio clip or single fringe blog.</li>
+                  <li>Major national news channels and news wires (PTI, ANI, Reuters) have zero reports.</li>
+                  <li>Forwarded tag marked <em>"Forwarded many times"</em> accompanied by emotional urgency.</li>
+                </ul>
+              </div>
+              <div class="pro-check-box">
+                <span class="pro-check-label">✅ Pro-Check Action</span>
+                Search the headline on Google News. If only 1 obscure blog reports it, it is likely false.
+              </div>
+            </div>
+            <button type="button" class="link-more" aria-expanded="false">Inspect Case Study ➔</button>
+          </article>
+
+          <article class="polaroid" style="--rot:0.9deg">
+            <div class="tape tape-p tape-tr" aria-hidden="true"></div>
+            <div class="polaroid-photo">
+              <img src="{{ url_for('static', filename='img/context_check.jpg') }}" alt="Context & Clickbait Verification" class="polaroid-img" loading="lazy" />
+            </div>
+            <div class="card-header-row">
+              <span class="card-num">06</span>
+              <span class="card-tag-pill pill-cyan">🎯 Deceptive Clickbait</span>
+            </div>
+            <h3>Context</h3>
+            <p class="card-q">Headline match?</p>
+            <p class="card-brief">Read past rage-bait headlines to inspect the actual facts and context.</p>
+            <div class="card-more hidden">
+              <div class="case-study-box">
+                <span class="case-study-title">🚨 Real-World Case Study</span>
+                <span class="case-study-name">The Cropped 8-Second Speech Video</span>
+                <p class="case-study-text">A 10-second video of an official was cut to sound like a threat: <em>"We will demolish everything"</em>. The full uncut 3-minute video revealed they were explaining demolition of illegal encroachments following a court order.</p>
+              </div>
+              <div class="red-flags-box">
+                <div class="red-flags-heading">🚩 Red Flags To Watch</div>
+                <ul class="red-flags-list">
+                  <li>ALL-CAPS screaming headlines with excessive emojis (🚨🚨‼️).</li>
+                  <li>Videos trimmed abruptly right before or after a controversial sentence.</li>
+                  <li>The body text in the article completely contradicts the sensational headline.</li>
+                </ul>
+              </div>
+              <div class="pro-check-box">
+                <span class="pro-check-label">✅ Pro-Check Action</span>
+                Always watch the uncut full press conference or read the full article before sharing.
+              </div>
+            </div>
+            <button type="button" class="link-more" aria-expanded="false">Inspect Case Study ➔</button>
+          </article>
+        </div>
+
+        <div class="sticker-strip" aria-hidden="true">
+          <img src="{{ url_for('static', filename='img/sticker-badges.png') }}" alt="" width="720" height="240" loading="lazy" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= QUIZ ================= -->
+    <section class="section section-ink" id="quiz">
+      <div class="container container-narrow">
+        <header class="section-head reveal">
+          <div class="tab-banner tab-yellow"><span>★ 03</span> QUIZ</div>
+          <div class="section-titles">
+            <h2 class="on-ink">Quiz</h2>
+            <p class="hand-sub on-ink-hand">ten questions — how sharp are you?</p>
+          </div>
+        </header>
+
+        <div class="quiz clip-card reveal" id="quizCard">
+          <div class="tape tape-yellow tape-c" aria-hidden="true"></div>
+          <div id="quizQuestionView">
+            <div class="quiz-top">
+              <span class="mono-meta" id="quizProgress">Question 1 / 10</span>
+              <div class="quiz-bar" aria-hidden="true"><span id="quizBarFill"></span></div>
+            </div>
+            <h3 class="quiz-question" id="quizQuestionText"></h3>
+            <div class="quiz-options" id="quizOptions" role="radiogroup" aria-label="Answer options"></div>
+            <p class="quiz-msg hidden" id="quizMsg" role="alert">Please select an answer.</p>
+            <div class="quiz-actions">
+              <button class="btn btn-chunk btn-ghost" id="quizPrevBtn" type="button">← Previous</button>
+              <button class="btn btn-chunk btn-black" id="quizNextBtn" type="button">Next →</button>
+            </div>
+          </div>
+
+          <div class="quiz-result hidden" id="quizResultView">
+            <p class="hand-label">quiz complete! ★</p>
+            <div class="score" id="scoreRing">
+              <div class="score-figures">
+                <strong id="scoreFraction">0 / 10</strong>
+                <span class="mono-meta" id="scorePercent">0%</span>
+              </div>
+              <div class="score-bar" aria-hidden="true"></div>
+            </div>
+            <h3 class="score-label" id="scoreLabel">Media Literacy: —</h3>
+            <p class="score-message" id="scoreMessage"></p>
+            <div class="quiz-result-actions">
+              <button class="btn btn-chunk btn-ghost" id="quizReviewBtn" type="button">Review Results</button>
+              <button class="btn btn-chunk btn-yellow" id="quizRetryBtn" type="button">Retry Quiz ↺</button>
+            </div>
+          </div>
+
+          <div class="quiz-review hidden" id="quizReviewView">
+            <p class="hand-label">review ✎</p>
+            <ol class="review-list" id="reviewList"></ol>
+            <div class="quiz-actions">
+              <button class="btn btn-chunk btn-ghost" id="quizBackBtn" type="button">← Back to Score</button>
+              <button class="btn btn-chunk btn-yellow" id="quizRetryBtn2" type="button">Retry Quiz ↺</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= HISTORY ================= -->
+    <section class="section" id="history">
+      <div class="container container-narrow">
+        <header class="section-head has-action reveal">
+          <div class="tab-banner tab-green"><span>★ 04</span> HISTORY</div>
+          <div class="section-titles">
+            <h2>Recent checks</h2>
+            <p class="hand-sub">last 15 — only in this browser. tap to view again.</p>
+          </div>
+          <button class="btn btn-chunk btn-ghost btn-sm" id="clearHistoryBtn" type="button">Clear History ✕</button>
+        </header>
+
+        <div class="history-empty ticket" id="historyEmpty">
+          <p>no checks yet — analyze a story to begin ✎</p>
+        </div>
+        <ul class="history-list hidden" id="historyList"></ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-banner" aria-hidden="true">
+      <span>THINK ★ CHECK ★ VERIFY ★ UNDERSTAND ★ SHARE RESPONSIBLY</span>
+    </div>
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <p class="wordmark footer-mark">Truth<span>Check</span><i class="logo-dot" aria-hidden="true"></i></p>
+        <p class="footer-desc">Spot warning signs. Verify before you share.</p>
+        <nav class="footer-links" aria-label="Footer">
+          <button type="button" class="footer-link" data-dialog="aboutDialog">About</button>
+          <button type="button" class="footer-link" data-dialog="methodDialog">Methodology</button>
+          <button type="button" class="footer-link" data-dialog="privacyDialog">Privacy</button>
+        </nav>
+      </div>
+      <div class="footer-meta">
+        <p class="footer-note-sm">Results are pattern analyses — never proof of truth.</p>
+        <p class="footer-note-sm">College project · Demonstration only</p>
+      </div>
+    </div>
+  </footer>
+
+  <dialog class="dlg" id="aboutDialog" aria-labelledby="aboutTitle">
+    <div class="tape tape-yellow tape-c" aria-hidden="true"></div>
+    <h2 id="aboutTitle">About</h2>
+    <p>A college project for slowing down before you share. Three-tier results — a verification aid, not an authority on truth.</p>
+    <button type="button" class="btn btn-chunk btn-black btn-sm" data-close>Close ✕</button>
+  </dialog>
+  <dialog class="dlg" id="methodDialog" aria-labelledby="methodTitle">
+    <div class="tape tape-blue tape-c" aria-hidden="true"></div>
+    <h2 id="methodTitle">Methodology</h2>
+    <p>Language model scores the text · rules flag warning signs · external search returns related coverage. Never a claim of 100% truth or falsehood.</p>
+    <button type="button" class="btn btn-chunk btn-black btn-sm" data-close>Close ✕</button>
+  </dialog>
+  <dialog class="dlg" id="privacyDialog" aria-labelledby="privacyTitle">
+    <div class="tape tape-pink tape-c" aria-hidden="true"></div>
+    <h2 id="privacyTitle">Privacy</h2>
+    <p>No accounts. History stays in this browser only (last 15) and can be cleared anytime.</p>
+    <button type="button" class="btn btn-chunk btn-black btn-sm" data-close>Close ✕</button>
+  </dialog>
+
+  <script src="{{ url_for('static', filename='js/app.js') }}?v=9"></script>
+</body>
+</html>
+
