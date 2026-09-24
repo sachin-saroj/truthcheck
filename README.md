@@ -1,7 +1,7 @@
 # 🛡️ TruthCheck — Multi-Layer AI Fake News & Fact Verification Engine
 
 <p align="center">
-  <img src="docs/assets/truthcheck-full-preview.png" alt="TruthCheck Web Platform Preview" width="100%" style="border-radius: 12px; box-shadow: 0 12px 30px rgba(0,0,0,0.15);" />
+  <img src="docs/assets/hero_preview.png" alt="TruthCheck Platform Preview" width="100%" style="border-radius: 12px; border: 2px solid #111; box-shadow: 0 12px 32px rgba(0,0,0,0.15);" />
 </p>
 
 <p align="center">
@@ -18,9 +18,9 @@
 
 ## 🌟 Overview
 
-**TruthCheck** is an end-to-end, production-ready misinformation detection and media literacy platform. In an era where deepfakes, WhatsApp forward scams, and synthetic headlines spread virally in seconds, traditional machine learning models alone fail because language classifiers lack real-time world knowledge, while pure LLMs hallucinate without grounded sources.
+**TruthCheck** is an end-to-end, production-ready misinformation detection and media literacy platform. In an era where deepfakes, viral WhatsApp forwards, and synthetic claims spread in seconds, traditional machine learning models alone fail because offline NLP classifiers lack real-time world knowledge, while pure LLMs hallucinate without grounded sources.
 
-TruthCheck solves this using a **Tri-Layer Verification Architecture**:
+TruthCheck solves this problem using a **Tri-Layer Verification Architecture**:
 1. **Linguistic ML Heuristics** — Evaluates stylistic signals, sensationalism, clickbait patterns, and urgency hooks via scikit-learn.
 2. **Real-Time Web Evidence Grounding** — Queries live news sources via DuckDuckGo News API to cross-reference claims against current reporting.
 3. **Advanced AI Synthesis & Fact Reasoning** — Synthesizes extracted web evidence using **Google Gemini 2.5 Flash** to provide a strict, verifiable verdict with a clear 2–3 sentence explanation and reputable citations.
@@ -29,43 +29,61 @@ TruthCheck solves this using a **Tri-Layer Verification Architecture**:
 
 ---
 
-## 🚀 Key Features
+## 🚀 Key Platform Features
 
 ### 1. 🔍 Real-World Fact Checker (Fixed Contract Output)
-- **Three-Tier Verdict System:**
+
+The analysis produces a strict, consistent contract card that cuts through hype and presents actionable evidence:
+
+<p align="center">
+  <img src="docs/assets/result_card_preview.png" alt="TruthCheck Analysis Result Preview" width="100%" style="border-radius: 10px; border: 2px solid #111; box-shadow: 0 8px 24px rgba(0,0,0,0.12);" />
+</p>
+
+- **Standardized Three-Tier Verdicts:**
   - 🟢 **SUPPORTED**: High-confidence corroboration by authoritative news outlets.
-  - 🔴 **FALSE / CONTRADICTED**: Direct contradiction with factual records, known hoaxes, or fraudulent scams.
+  - 🔴 **FALSE / CONTRADICTED**: Direct contradiction with factual records, known hoaxes, or fraudulent schemes.
   - 🟡 **UNCERTAIN / UNVERIFIED**: Developing stories, conflicting reports, or insufficient corroborating sources.
 - **Fixed Result Card Architecture**:
   - Exact **Confidence Score** percentage (e.g., `94%`).
   - **"Why?" Section**: 2–3 concise sentences summarizing what the evidence proves.
   - **Evidence Citations**: Direct list of publisher names (e.g., *BBC, ISRO, Reuters, The Hindu*) with corroboration notes and direct source URLs.
+  - **Linguistic Signals**: Rule-based detection of sensationalism, artificial urgency, clickbait, and attribution gaps.
 
-### 2. 🧠 Multi-Layer Hybrid Engine
-- Combines **TF-IDF (1–2 n-grams) + Logistic Regression** on a curated news dataset with real-time news retrieval.
-- Detects **10 distinct linguistic red flags**:
-  - Sensationalist hype & emotional outrage hooks
-  - Artificial forwarding urgency ("Share before deleted!")
-  - Absolute/unfalsifiable claims ("100% guaranteed", "proven cure")
-  - Clickbait phrasing & ALL-CAPS screaming
-  - Missing author attribution & missing date cues
+---
 
-### 3. 📚 Educational Media Literacy Hub
-- 6 interactive masterclasses designed in a contemporary **neo-brutalism + 3D clay aesthetic**:
-  - **Source Check** (WhatsApp Free Recharge Scam case study)
-  - **Date Check** (Outdated 2020 Lockdown circular recirculated in 2024)
-  - **Author Check** (Bylines vs. anonymous blog author fraud)
-  - **Evidence Check** (AI celebrity deepfake investment scams)
-  - **Cross-Check** (Single viral post vs. multi-outlet verification)
-  - **Context Check** (True video used with false captions / manipulated context)
-- Each card includes interactive **Red Flags to Watch** checklists and actionable **Pro-Verification Steps**.
+### 2. 📚 Educational Media Literacy Hub
 
-### 4. 🎯 Interactive Media Literacy Quiz
-- 10 practical real-world scenario questions.
-- Instant validation, progress tracking, explanatory answers, and final score evaluation.
+Media literacy is the first line of defense against online misinformation. TruthCheck features 6 real-world Indian case studies with interactive red-flag checklists:
 
-### 5. 🔒 Privacy-First Local History
-- Recent fact checks are securely cached in the browser's `localStorage` (max 15 items).
+<p align="center">
+  <img src="docs/assets/media_literacy_preview.png" alt="TruthCheck Media Literacy Hub Preview" width="100%" style="border-radius: 10px; border: 2px solid #111; box-shadow: 0 8px 24px rgba(0,0,0,0.12);" />
+</p>
+
+- **Source Check** (WhatsApp Free 3-Month Recharge Scam case study)
+- **Date Check** (Outdated 2020 Lockdown circular recirculated in 2024)
+- **Author Check** (Bylines vs. anonymous blog author fraud)
+- **Evidence Check** (AI celebrity deepfake investment scams)
+- **Cross-Check** (Single viral post vs. multi-outlet verification)
+- **Context Check** (Real footage paired with misleading captions)
+
+---
+
+### 3. 🎯 Gamified Verification Quiz
+
+A 10-question scenario-based quiz designed to train users in identifying clickbait, deceptive framing, and verification techniques:
+
+<p align="center">
+  <img src="docs/assets/quiz_preview.png" alt="TruthCheck Interactive Quiz Preview" width="100%" style="border-radius: 10px; border: 2px solid #111; box-shadow: 0 8px 24px rgba(0,0,0,0.12);" />
+</p>
+
+- Real-time feedback and explanation for each question.
+- Comprehensive score summary and complete answer review.
+- Retry mode for continuous learning.
+
+---
+
+### 4. 🔒 Privacy-First Local History
+- Recent fact checks are securely stored in the browser's `localStorage` (max 15 items).
 - Zero user tracking, zero mandatory account creation, zero database footprint.
 
 ---
