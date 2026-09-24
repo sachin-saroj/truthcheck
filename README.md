@@ -1,190 +1,303 @@
-# TruthCheck — Fake News Detection & Media Literacy
+# 🛡️ TruthCheck — Multi-Layer AI Fake News & Fact Verification Engine
 
-TruthCheck is an educational, production-quality single-page web application combining **machine learning text analysis**, **rule-based warning-sign detection**, and **external news verification via FreeNewsAPI.ai** — complete with interactive media-literacy guidance, a 10-question educational quiz, and local browser check history.
+<p align="center">
+  <img src="docs/assets/truthcheck-full-preview.png" alt="TruthCheck Web Platform Preview" width="100%" style="border-radius: 12px; box-shadow: 0 12px 30px rgba(0,0,0,0.15);" />
+</p>
 
-> **Important Limitation:** TruthCheck is an **AI-assisted language-pattern detector** and educational media-literacy tool. It evaluates linguistic style, structural warning signs, and supporting outside news coverage to provide an estimated **Credibility Score** — it is **not** an authoritative arbiter of absolute factual truth.
-
----
-
-## Features
-
-| Feature | Description |
-|---------|-------------|
-| **News Detector** | Analyze headlines, articles, or social claims. Produces a continuous Credibility Score (0–100%), flags 10 rule-based warning signs (sensationalism, clickbait, absolute claims, unsupported statements, missing attribution, excessive punctuation, ALL-CAPS, emotional hooks, artificial urgency, missing dates), and searches supporting coverage. |
-| **Result Card** | Clean three-tier verdict (🟢 **Likely True** · 🟡 **Needs Verification** · 🔴 **Likely Fake**) with single **Credibility Score**, balanced explanatory summary, and 4 practical media-literacy action steps. |
-| **Media Literacy** | Six structured educational cards: **Source**, **Date**, **Author**, **Evidence**, **Cross-check**, **Context** — each with *What to check*, *Why it matters*, and *What to do*. |
-| **Interactive Quiz** | 10-question interactive media-literacy quiz with progress bar, option validation, instant feedback, scoring, and complete review mode. |
-| **Check History** | Stores the last 15 checks locally in browser `localStorage` with verdict, credibility score, and timestamp; one-click restore and clear confirmation. |
+<p align="center">
+  <a href="https://truthcheck-mz0s.onrender.com"><img src="https://img.shields.io/badge/Live%20Demo-truthcheck--mz0s.onrender.com-success?style=for-the-badge&logo=render&logoColor=white" alt="Live Demo" /></a>
+  <img src="https://img.shields.io/badge/Python-3.11%20%7C%203.12-blue?style=for-the-badge&logo=python&logoColor=white" alt="Python" />
+  <img src="https://img.shields.io/badge/Framework-Flask%203.0-lightgrey?style=for-the-badge&logo=flask&logoColor=white" alt="Flask" />
+  <img src="https://img.shields.io/badge/AI%20Model-Google%20Gemini%20Flash-4285F4?style=for-the-badge&logo=google&logoColor=white" alt="Gemini AI" />
+  <img src="https://img.shields.io/badge/Search-DuckDuckGo%20Live-orange?style=for-the-badge&logo=duckduckgo&logoColor=white" alt="DuckDuckGo" />
+  <img src="https://img.shields.io/badge/Tests-56%20Passed-brightgreen?style=for-the-badge&logo=pytest&logoColor=white" alt="Tests" />
+  <img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="License" />
+</p>
 
 ---
 
-## Architecture & Data Flow
+## 🌟 Overview
+
+**TruthCheck** is an end-to-end, production-ready misinformation detection and media literacy platform. In an era where deepfakes, WhatsApp forward scams, and synthetic headlines spread virally in seconds, traditional machine learning models alone fail because language classifiers lack real-time world knowledge, while pure LLMs hallucinate without grounded sources.
+
+TruthCheck solves this using a **Tri-Layer Verification Architecture**:
+1. **Linguistic ML Heuristics** — Evaluates stylistic signals, sensationalism, clickbait patterns, and urgency hooks via scikit-learn.
+2. **Real-Time Web Evidence Grounding** — Queries live news sources via DuckDuckGo News API to cross-reference claims against current reporting.
+3. **Advanced AI Synthesis & Fact Reasoning** — Synthesizes extracted web evidence using **Google Gemini 2.5 Flash** to provide a strict, verifiable verdict with a clear 2–3 sentence explanation and reputable citations.
+
+🌐 **Try the Live Application:** [https://truthcheck-mz0s.onrender.com](https://truthcheck-mz0s.onrender.com)
+
+---
+
+## 🚀 Key Features
+
+### 1. 🔍 Real-World Fact Checker (Fixed Contract Output)
+- **Three-Tier Verdict System:**
+  - 🟢 **SUPPORTED**: High-confidence corroboration by authoritative news outlets.
+  - 🔴 **FALSE / CONTRADICTED**: Direct contradiction with factual records, known hoaxes, or fraudulent scams.
+  - 🟡 **UNCERTAIN / UNVERIFIED**: Developing stories, conflicting reports, or insufficient corroborating sources.
+- **Fixed Result Card Architecture**:
+  - Exact **Confidence Score** percentage (e.g., `94%`).
+  - **"Why?" Section**: 2–3 concise sentences summarizing what the evidence proves.
+  - **Evidence Citations**: Direct list of publisher names (e.g., *BBC, ISRO, Reuters, The Hindu*) with corroboration notes and direct source URLs.
+
+### 2. 🧠 Multi-Layer Hybrid Engine
+- Combines **TF-IDF (1–2 n-grams) + Logistic Regression** on a curated news dataset with real-time news retrieval.
+- Detects **10 distinct linguistic red flags**:
+  - Sensationalist hype & emotional outrage hooks
+  - Artificial forwarding urgency ("Share before deleted!")
+  - Absolute/unfalsifiable claims ("100% guaranteed", "proven cure")
+  - Clickbait phrasing & ALL-CAPS screaming
+  - Missing author attribution & missing date cues
+
+### 3. 📚 Educational Media Literacy Hub
+- 6 interactive masterclasses designed in a contemporary **neo-brutalism + 3D clay aesthetic**:
+  - **Source Check** (WhatsApp Free Recharge Scam case study)
+  - **Date Check** (Outdated 2020 Lockdown circular recirculated in 2024)
+  - **Author Check** (Bylines vs. anonymous blog author fraud)
+  - **Evidence Check** (AI celebrity deepfake investment scams)
+  - **Cross-Check** (Single viral post vs. multi-outlet verification)
+  - **Context Check** (True video used with false captions / manipulated context)
+- Each card includes interactive **Red Flags to Watch** checklists and actionable **Pro-Verification Steps**.
+
+### 4. 🎯 Interactive Media Literacy Quiz
+- 10 practical real-world scenario questions.
+- Instant validation, progress tracking, explanatory answers, and final score evaluation.
+
+### 5. 🔒 Privacy-First Local History
+- Recent fact checks are securely cached in the browser's `localStorage` (max 15 items).
+- Zero user tracking, zero mandatory account creation, zero database footprint.
+
+---
+
+## 🏗️ System Architecture
 
 ```text
-Browser User Interface
-         │
-         ▼  (POST /api/analyze)
-Flask Backend (app.py)
-         │
-         ├──► ML Detector (detector/detector.py)
-         │       • TF-IDF (1–2 grams, sublinear TF) + Logistic Regression
-         │       • Outputs P(misleading_style)
-         │       • Credibility Score = round((1 - P(misleading)) * 100)
-         │       • Rule-based Warning Signs (regex patterns)
-         │
-         └──► News Verification Service (services/verification.py)
-                 • Deterministic entity/topic extraction (build_search_query)
-                 • FreeNewsAPI.ai (/v1/search) — Keyless, public endpoint
-                 • URL safety validation (http/https only, netloc required)
-                 • In-process LRU cache (prevents duplicate queries)
-                 • Multi-tier error handling (safe fallback, no stack traces)
+               ┌────────────────────────────────────────────────────────┐
+               │              Browser Single-Page Web App               │
+               │   (HTML5 · Neo-Brutalism CSS3 · Vanilla ES6 JS)        │
+               └───────────────────────────┬────────────────────────────┘
+                                           │
+                                  POST /api/analyze
+                                           │
+                                           ▼
+┌──────────────────────────────────────────────────────────────────────────────────┐
+│                             Flask Application (app.py)                           │
+│                                                                                  │
+│   ┌──────────────────────────────────────────────────────────────────────────┐   │
+│   │ Layer 1: Linguistic & Stylistic Classifier (detector/detector.py)        │   │
+│   │  • TF-IDF Vectorizer (5,000 features, 1-2 ngrams, sublinear scaling)    │   │
+│   │  • Logistic Regression Classifier + 10 Regex Red-Flag Heuristics         │   │
+│   └──────────────────────────────────┬───────────────────────────────────────┘   │
+│                                      │                                           │
+│   ┌──────────────────────────────────▼───────────────────────────────────────┐   │
+│   │ Layer 2: Real-Time Web Evidence Grounding (services/search_service.py)   │   │
+│   │  • Query normalization & topical entity extraction                       │   │
+│   │  • DuckDuckGo News API live retrieval (timeout-resilient & rate-safe)    │   │
+│   └──────────────────────────────────┬───────────────────────────────────────┘   │
+│                                      │                                           │
+│   ┌──────────────────────────────────▼───────────────────────────────────────┐   │
+│   │ Layer 3: AI Fact Synthesis & Reasoning (services/fact_checker.py)        │   │
+│   │  • Google Gemini 2.5 Flash / OpenRouter Qwen fallback                     │   │
+│   │  • Fixed Contract schema enforcement & citation corroboration            │   │
+│   └──────────────────────────────────┬───────────────────────────────────────┘   │
+└──────────────────────────────────────┼───────────────────────────────────────────┘
+                                       │
+                                JSON Response
+                                       │
+                                       ▼
+                     [ Rendered Interactive Result Card ]
 ```
 
-**Primacy Principle:** The ML detector remains the primary analysis engine. FreeNewsAPI.ai acts strictly as supporting context; news search results **never** alter the ML credibility score or independently declare a story true or fake.
+---
+
+## 📊 Comparison: Why Multi-Layer Beats Single Solutions
+
+| Evaluation Dimension | Pure ML Classifier (TF-IDF / BERT) | Pure LLM (ChatGPT / Claude) | 🛡️ TruthCheck Multi-Layer |
+|:---|:---:|:---:|:---:|
+| **Breaking News Detection** | ❌ Fails (Training cutoff / no web access) | ❌ Stale data / Hallucinations | ✅ **Real-time live news search** |
+| **Stylistic Manipulation Detection** | ✅ Good at text patterns | ⚠️ Inconsistent pattern scoring | ✅ **Deterministic regex + ML score** |
+| **Evidence Transparency** | ❌ Black-box percentage | ⚠️ Hallucinated URLs possible | ✅ **Direct clickable source links** |
+| **Response Latency** | ⚡ Fast (< 50ms) | 🐢 Slow (4–10s) | ⚡ **Fast Flash reasoning (~1.2s)** |
+| **Educational Impact** | ❌ Just gives a number | ⚠️ Long generic text | ✅ **Interactive Case Studies & Quiz** |
 
 ---
 
-## How the Verdict is Formed
+## 🛠️ Tech Stack
 
-1. **Text Preprocessing** — Normalizes whitespace, Unicode quotes/dashes, extracts URLs and email tokens, cleans punctuation while preserving numbers, names, and entities.
-2. **Language Model** — Cleaned text → TF-IDF Vectorizer (5,000 max features, 1–2 ngrams, sublinear scaling) → Logistic Regression → `P(misleading-style)`.
-3. **Credibility Score** — `round((1.0 - P(misleading-style)) * 100)`. Higher score represents higher likelihood of reliable journalistic style.
-4. **Single Public Threshold**:
-   - `Credibility Score < 50%` → 🔴 **Likely Fake**
-   - `Credibility Score = 50%` → 🟡 **Needs Verification**
-   - `Credibility Score > 50%` → 🟢 **Likely True**
-5. **Warning-Sign Detection** — Independent regex checks flag sensationalism, ALL-CAPS, clickbait, absolutes, unsupported claims, missing attribution, emotional language, sharing urgency, and missing date cues.
-6. **External Verification** — Extracts key topical entities and searches FreeNewsAPI.ai for related coverage, returning normalized source cards (title, host/sitename, URL, publication date, description).
+- **Backend:** Python 3.11+, Flask 3.0+, Gunicorn (WSGI)
+- **Machine Learning & NLP:** scikit-learn, pandas, numpy, joblib
+- **Generative AI & LLMs:** Google Gemini API (`gemini-2.5-flash` / `gemini-1.5-flash`), OpenRouter fallback (`qwen-3.8-27b`)
+- **Web Search Grounding:** DuckDuckGo News API (`ddgs`)
+- **Frontend:** Semantic HTML5, Custom Neo-Brutalist CSS3, Vanilla ES6 JavaScript (Zero heavy node_modules on client)
+- **Cloud Deployment:** Render.com (Automated CI/CD via GitHub integration)
 
 ---
 
-## Technology Stack
+## 💻 Local Installation & Setup
 
-- **Backend**: Python 3.10+, Flask 3.0+
-- **Machine Learning**: scikit-learn (TF-IDF Vectorizer + Logistic Regression, balanced class weights)
-- **External News Search**: FreeNewsAPI.ai (REST API, keyless)
-- **Frontend**: Semantic HTML5, Vanilla CSS3 (responsive grid/flexbox, editorial aesthetic), Vanilla JavaScript (ES6+, zero frontend frameworks, localStorage persistence)
-- **Testing**: Python standard `unittest` framework (unit, integration, mock, live API, and end-to-end tests)
-
----
-
-## Quick Start
-
-### 1. Prerequisites & Virtual Environment
+### 1. Clone the Repository
 ```bash
-cd TruthCheck
+git clone https://github.com/sachin-saroj/truthcheck.git
+cd truthcheck
+```
 
-# Create and activate virtual environment
-python -m venv .venv
-
-# Windows PowerShell:
-.venv\Scripts\Activate.ps1
-# Windows Command Prompt:
-.venv\Scripts\activate.bat
-# Linux / macOS:
+### 2. Create Virtual Environment
+```bash
+# macOS/Linux:
+python3 -m venv .venv
 source .venv/bin/activate
 
-# Install dependencies
+# Windows (PowerShell):
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+```
+
+### 3. Install Dependencies
+```bash
 pip install -r requirements.txt
 ```
 
-### 2. (Optional) Regenerate Dataset & Retrain Model
-```bash
-python scripts/generate_dataset.py
-python -c "from detector.detector import NewsDetector; print(NewsDetector().train())"
+### 4. Configure Environment Variables
+Create a `.env` file in the root directory (refer to `.env.example`):
+```env
+PORT=5000
+
+# Recommended: Free Google Gemini API Key
+# Get your free key at: https://aistudio.google.com/app/apikey
+GEMINI_API_KEY=your_gemini_api_key_here
+
+# Optional: OpenRouter Fallback Key
+OPENROUTER_API_KEY=your_openrouter_api_key_here
 ```
 
-### 3. Run the Application
+### 5. Launch the Application
 ```bash
 python app.py
 ```
-Open your browser to: **http://localhost:5000** (or **http://127.0.0.1:5000**).
+Open your browser and navigate to **`http://localhost:5000`**.
 
 ---
 
-## Running the Automated Test Suite
+## 🧪 Automated Testing
 
-Execute the complete automated test suite (42 tests covering ML pipeline, FreeNewsAPI adapter, Flask API endpoints, and demo buttons):
+TruthCheck includes a comprehensive test suite with **56 automated test cases** covering the ML classifier, evidence verification, Gemini service integration, fallback mechanisms, and API endpoints.
 
+Run the test suite using Python's built-in test runner:
 ```bash
-# Using active venv:
 python -m unittest discover tests
+```
 
-# Or directly with venv binary:
-.venv\Scripts\python.exe -m unittest discover tests
+Sample output:
+```text
+INFO:truthcheck:Model ready: {'accuracy': 1.0, 'precision': 1.0, 'recall': 1.0, 'f1': 1.0, 'train_rows': 1200}
+INFO:truthcheck:FactChecker ready: AI model=google/gemini-2.5-flash, configured=True
+........................................................
+----------------------------------------------------------------------
+Ran 56 tests in 1.48s
+
+OK
 ```
 
 ---
 
-## API Documentation
+## 📡 API Reference
 
 ### `POST /api/analyze`
-Analyzes a submitted news headline or article.
-- **Request Body:** `{"text": "Headline or article text (min 20, max 8,000 chars)"}`
-- **Response Structure:**
-  ```json
-  {
-    "verdict": {
-      "id": "likely_true",
-      "label": "Likely True",
-      "emoji": "🟢",
-      "tone": "ok"
-    },
-    "credibility_score": 88,
-    "summary": "This news shows patterns commonly associated with reliable news (88% credibility)...",
-    "why": ["Language patterns match neutral reporting.", "..."],
-    "signals": [
-      {"id": "source", "label": "Source", "detail": "..."},
-      {"id": "language", "label": "Language", "detail": "..."},
-      {"id": "evidence", "label": "Evidence", "detail": "..."}
-    ],
-    "warning_signs": [],
-    "model": {
-      "probabilities": {
-        "reliable_style": 0.88,
-        "misleading_style": 0.12
-      },
-      "note": "Credibility signal only — not proof of truth or falsehood."
-    },
-    "verification": {
-      "status": "ok",
-      "message": "Found 5 related articles.",
-      "sources": [
-        {
-          "title": "Article Title",
-          "url": "https://example.com/story",
-          "source": "Publisher Name",
-          "publishedAt": "2026-09-23T12:00:00Z",
-          "description": "Short excerpt..."
-        }
-      ]
-    },
-    "tips": ["Still check the publication date.", "..."],
-    "elapsed_ms": 420
-  }
-  ```
+Submits text or claims for full multi-layer analysis.
+
+**Request Payload:**
+```json
+{
+  "text": "ISRO successfully performed the soft landing of Chandrayaan-3 on the lunar south pole."
+}
+```
+
+**Response Payload:**
+```json
+{
+  "verdict": {
+    "id": "supported",
+    "label": "Supported",
+    "emoji": "🟢",
+    "tone": "ok"
+  },
+  "confidence": 98,
+  "credibility_score": 98,
+  "summary": "Multiple independent news sources corroborate the soft landing of Chandrayaan-3 near the moon's south pole.",
+  "key_points": [
+    "Corroborated by official reporting from ISRO and international news agencies.",
+    "Historic milestone confirmed on August 23, 2023."
+  ],
+  "sources": [
+    {
+      "source": "BBC News",
+      "title": "Chandrayaan-3: India makes historic landing near Moon's south pole",
+      "url": "https://www.bbc.com/news/world-asia-india-66594520",
+      "publishedAt": "2023-08-23"
+    }
+  ],
+  "signals": [
+    { "id": "source", "label": "Source Verification", "detail": "Corroborated by credible major news organizations." },
+    { "id": "evidence", "label": "Factual Consistency", "detail": "High consistency across independent reporting." }
+  ],
+  "ai_info": {
+    "is_ai_verified": true,
+    "model": "google/gemini-2.5-flash",
+    "provider": "google_gemini"
+  },
+  "elapsed_ms": 1150
+}
+```
 
 ### `GET /api/health`
-Returns system status, ML detector readiness, metrics, and verification status:
+Health check endpoint reporting model status and subsystem readiness.
 ```json
 {
   "status": "ok",
   "model": "ready",
+  "fact_checker": {
+    "configured": true,
+    "model": "google/gemini-2.5-flash",
+    "search": "ready"
+  },
   "metrics": {
     "accuracy": 1.0,
     "precision": 1.0,
     "recall": 1.0,
     "f1": 1.0,
     "train_rows": 1200
-  },
-  "verification": "configured"
+  }
 }
 ```
 
 ---
 
-## Known Limitations
+## 🚢 Deployment on Render
 
-1. **Linguistic Heuristic, Not Fact Oracle:** TruthCheck evaluates writing style and journalistic patterns. An authentic journalist quoting a ridiculous statement or a malicious actor writing in dry, neutral bureaucratic style may produce unexpected credibility scores.
-2. **Dataset Nature:** The demo dataset contains 1,200 curated, balanced samples across multiple real-world news categories (space, medicine, economy, policy) and misinformation categories (miracle cures, conspiracies, clickbait). Real-world news diversity is vast; for production deployment at national scale, fine-tuning on academic datasets (such as LIAR or FEVER) is recommended.
-3. **Public FreeNewsAPI Quotas:** External verification depends on the public FreeNewsAPI.ai service. If the external service experiences downtime or network rate-limiting, TruthCheck gracefully falls back to local linguistic analysis without crashing.
+This project is optimized for 1-click deployment on [Render.com](https://render.com) using the included `Procfile` and `render.yaml`.
+
+1. Push your repository to GitHub.
+2. In the Render Dashboard, create a **New Web Service** and select your `truthcheck` repository.
+3. Configure the following:
+   - **Environment:** `Python`
+   - **Build Command:** `pip install -r requirements.txt`
+   - **Start Command:** `gunicorn app:app --workers 2 --timeout 120`
+4. Add your **Environment Variables**:
+   - `GEMINI_API_KEY`: *(Your Google AI Studio Key)*
+   - `PYTHON_VERSION`: `3.11.9`
+5. Click **Deploy**!
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
+
+---
+
+<p align="center">
+  Developed with ❤️ by <b>Sachin Saroj</b> for responsible media literacy and digital trust.
+  <br>
+  <i>"Think Before You Share."</i>
+</p>
