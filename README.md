@@ -1,7 +1,7 @@
 # 🛡️ TruthCheck — Multi-Layer AI Fake News & Fact Verification Engine
 
 <p align="center">
-  <img src="docs/assets/hero_preview.png" alt="TruthCheck Platform Preview" width="100%" style="border-radius: 12px; border: 2px solid #111; box-shadow: 0 12px 32px rgba(0,0,0,0.15);" />
+  <img src="docs/assets/01_hero_section.png" alt="TruthCheck Platform Hero Preview" width="100%" style="border-radius: 12px; border: 2px solid #111; box-shadow: 0 12px 32px rgba(0,0,0,0.15);" />
 </p>
 
 <p align="center">
@@ -29,14 +29,14 @@ TruthCheck solves this problem using a **Tri-Layer Verification Architecture**:
 
 ---
 
-## 🚀 Key Platform Features
+## 🚀 Key Platform Features & Screenshots
 
 ### 1. 🔍 Real-World Fact Checker (Fixed Contract Output)
 
-The analysis produces a strict, consistent contract card that cuts through hype and presents actionable evidence:
+The fact-checker produces a strict, consistent result contract that cuts through noise and presents actionable evidence with live citations:
 
 <p align="center">
-  <img src="docs/assets/result_card_preview.png" alt="TruthCheck Analysis Result Preview" width="100%" style="border-radius: 10px; border: 2px solid #111; box-shadow: 0 8px 24px rgba(0,0,0,0.12);" />
+  <img src="docs/assets/02_fact_checker_result.png" alt="TruthCheck Real-World Fact Checker and Result Card Preview" width="100%" style="border-radius: 10px; border: 2px solid #111; box-shadow: 0 8px 24px rgba(0,0,0,0.12);" />
 </p>
 
 - **Standardized Three-Tier Verdicts:**
@@ -44,7 +44,7 @@ The analysis produces a strict, consistent contract card that cuts through hype 
   - 🔴 **FALSE / CONTRADICTED**: Direct contradiction with factual records, known hoaxes, or fraudulent schemes.
   - 🟡 **UNCERTAIN / UNVERIFIED**: Developing stories, conflicting reports, or insufficient corroborating sources.
 - **Fixed Result Card Architecture**:
-  - Exact **Confidence Score** percentage (e.g., `94%`).
+  - Exact **Confidence Score** percentage (e.g., `99%`).
   - **"Why?" Section**: 2–3 concise sentences summarizing what the evidence proves.
   - **Evidence Citations**: Direct list of publisher names (e.g., *BBC, ISRO, Reuters, The Hindu*) with corroboration notes and direct source URLs.
   - **Linguistic Signals**: Rule-based detection of sensationalism, artificial urgency, clickbait, and attribution gaps.
@@ -53,10 +53,10 @@ The analysis produces a strict, consistent contract card that cuts through hype 
 
 ### 2. 📚 Educational Media Literacy Hub
 
-Media literacy is the first line of defense against online misinformation. TruthCheck features 6 real-world Indian case studies with interactive red-flag checklists:
+Media literacy is the first line of defense against online misinformation. TruthCheck features 6 real-world Indian case studies with interactive red-flag checklists and modern 3D neo-brutalist visuals:
 
 <p align="center">
-  <img src="docs/assets/media_literacy_preview.png" alt="TruthCheck Media Literacy Hub Preview" width="100%" style="border-radius: 10px; border: 2px solid #111; box-shadow: 0 8px 24px rgba(0,0,0,0.12);" />
+  <img src="docs/assets/03_media_literacy.png" alt="TruthCheck Media Literacy Hub Preview" width="100%" style="border-radius: 10px; border: 2px solid #111; box-shadow: 0 8px 24px rgba(0,0,0,0.12);" />
 </p>
 
 - **Source Check** (WhatsApp Free 3-Month Recharge Scam case study)
@@ -73,7 +73,7 @@ Media literacy is the first line of defense against online misinformation. Truth
 A 10-question scenario-based quiz designed to train users in identifying clickbait, deceptive framing, and verification techniques:
 
 <p align="center">
-  <img src="docs/assets/quiz_preview.png" alt="TruthCheck Interactive Quiz Preview" width="100%" style="border-radius: 10px; border: 2px solid #111; box-shadow: 0 8px 24px rgba(0,0,0,0.12);" />
+  <img src="docs/assets/04_interactive_quiz.png" alt="TruthCheck Interactive Quiz Preview" width="100%" style="border-radius: 10px; border: 2px solid #111; box-shadow: 0 8px 24px rgba(0,0,0,0.12);" />
 </p>
 
 - Real-time feedback and explanation for each question.
@@ -82,9 +82,16 @@ A 10-question scenario-based quiz designed to train users in identifying clickba
 
 ---
 
-### 4. 🔒 Privacy-First Local History
-- Recent fact checks are securely stored in the browser's `localStorage` (max 15 items).
-- Zero user tracking, zero mandatory account creation, zero database footprint.
+### 4. 🕒 Privacy-First Check History
+
+TruthCheck provides an instant browser-local audit trail of all claims analyzed, allowing users to tap and inspect previous results at any time:
+
+<p align="center">
+  <img src="docs/assets/05_recent_history.png" alt="TruthCheck Recent Checks History Preview" width="100%" style="border-radius: 10px; border: 2px solid #111; box-shadow: 0 8px 24px rgba(0,0,0,0.12);" />
+</p>
+
+- Stores up to 15 recent checks with verdict stamps, credibility scores, signals count, and timestamps.
+- Completely client-side via `localStorage` — zero user tracking, zero logins required, zero server database storage.
 
 ---
 
