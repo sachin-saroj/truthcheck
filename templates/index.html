@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Caveat:wght@500;700&family=Nunito:wght@400;600;700;800&family=Patrick+Hand&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=9" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=10" />
 
 </head>
 <body>
@@ -257,68 +257,70 @@
     <section class="section section-cream" id="learn">
       <div class="container">
         <header class="section-head reveal">
-          <div class="tab-banner tab-blue"><span>★ 03</span> LEARN</div>
+          <div class="tab-banner tab-blue"><span>★ 03</span> MEDIA LITERACY</div>
           <div class="section-titles">
-            <h2>Media literacy</h2>
-            <p class="hand-sub">six checks before you believe — or share!</p>
+            <h2>Verification Protocol</h2>
+            <p class="hand-sub">six forensic checks before you believe, react, or share!</p>
           </div>
         </header>
 
         <div class="literacy-grid reveal">
-          <article class="polaroid" style="--rot:-1.6deg">
+          <!-- CARD 01: SOURCE -->
+          <article class="polaroid">
             <div class="tape tape-y tape-tl" aria-hidden="true"></div>
             <div class="polaroid-photo">
-              <img src="{{ url_for('static', filename='img/source_check.jpg') }}" alt="Source Verification" class="polaroid-img" loading="lazy" />
+              <img src="{{ url_for('static', filename='img/source_check.jpg') }}" alt="Digital Source and Domain Forensics" class="polaroid-img" loading="lazy" />
             </div>
             <div class="card-header-row">
-              <span class="card-num">01</span>
-              <span class="card-tag-pill pill-amber">🔍 Fake Portal Scam</span>
+              <span class="card-num">CHECK 01</span>
+              <span class="card-tag-pill pill-amber">🔍 DOMAIN &amp; MASTHEAD</span>
             </div>
             <h3>Source</h3>
-            <p class="card-q">Who published it?</p>
-            <p class="card-brief">Named outlet with an authentic "About Us" and registered domain.</p>
+            <p class="card-q"><span class="q-marker">Interrogate:</span> "Who published it?"</p>
+            <p class="card-brief">Identify the publisher, verify registered business entity, official domain age, and editorial masthead.</p>
             <div class="card-more hidden">
               <div class="case-study-box">
-                <span class="case-study-title">🚨 Real-World Case Study</span>
+                <span class="case-study-title">🚨 REAL-WORLD CASE FILE</span>
                 <span class="case-study-name">The Viral ₹5,000 Free Recharge Phish</span>
-                <p class="case-study-text">Viral WhatsApp links like <code>pm-free-recharge.xyz</code> claimed the government is giving free 5G data to all citizens. The page cloned official government colors to harvest user phone numbers and OTPs.</p>
+                <p class="case-study-text">Viral WhatsApp links like <code>pm-free-recharge.xyz</code> claimed the government is distributing free 5G data to all citizens. The page cloned official government colors to harvest user phone numbers and OTPs.</p>
               </div>
               <div class="red-flags-box">
-                <div class="red-flags-heading">🚩 Red Flags To Watch</div>
+                <div class="red-flags-heading">🚩 FORENSIC RED FLAGS</div>
                 <ul class="red-flags-list">
-                  <li>Unusual domain extensions (.xyz, .tk, .click) instead of authentic <code>.gov.in</code> or established media.</li>
+                  <li>Unusual domain extensions (<code>.xyz</code>, <code>.top</code>, <code>.click</code>) instead of authentic <code>.gov.in</code> or established media.</li>
                   <li>Zero physical office address, no listed editor-in-chief, and no grievance officer details.</li>
                   <li>Typo-squatted domains mimicking top outlets (e.g. <code>timesoflndia.co</code>).</li>
                 </ul>
               </div>
               <div class="pro-check-box">
-                <span class="pro-check-label">✅ Pro-Check Action</span>
-                Check official portals (pib.gov.in) or look up domain age on Whois before clicking.
+                <span class="pro-check-label">🛡️ VERIFICATION PROTOCOL</span>
+                Check official portals (<code>pib.gov.in</code>) or inspect domain registration age via ICANN RDAP before clicking.
               </div>
             </div>
-            <button type="button" class="link-more" aria-expanded="false">Inspect Case Study ➔</button>
+            <button type="button" class="link-more" aria-expanded="false">Inspect Case File ➔</button>
           </article>
 
-          <article class="polaroid" style="--rot:1.2deg">
+          <!-- CARD 02: DATE -->
+          <article class="polaroid">
             <div class="tape tape-p tape-tr" aria-hidden="true"></div>
             <div class="polaroid-photo">
-              <img src="{{ url_for('static', filename='img/date_check.jpg') }}" alt="Date Verification" class="polaroid-img" loading="lazy" />
+              <img src="{{ url_for('static', filename='img/date_check.jpg') }}" alt="Timestamp and Date Forensics" class="polaroid-img" loading="lazy" />
             </div>
             <div class="card-header-row">
-              <span class="card-num">02</span>
-              <span class="card-tag-pill pill-red">⏱️ Recycled Panic</span>
+              <span class="card-num">CHECK 02</span>
+              <span class="card-tag-pill pill-red">⏱️ TIMESTAMP AUDIT</span>
             </div>
             <h3>Date</h3>
-            <p class="card-q">Is it current?</p>
-            <p class="card-brief">Publish date matches today's breaking news claim.</p>
+            <p class="card-q"><span class="q-marker">Interrogate:</span> "Is it current?"</p>
+            <p class="card-brief">Confirm original publish date matches today's breaking news claim rather than an old recycled emergency circular.</p>
             <div class="card-more hidden">
               <div class="case-study-box">
-                <span class="case-study-title">🚨 Real-World Case Study</span>
-                <span class="case-study-name">Recycled 2020 Lockdown Notice Panic</span>
-                <p class="case-study-text">During recent seasonal weather alerts, a genuine 2020 government disaster circular was recirculated as "Breaking News Today", sparking widespread panic about sudden market and school closures.</p>
+                <span class="case-study-title">🚨 REAL-WORLD CASE FILE</span>
+                <span class="case-study-name">Recycled 2020 Disaster Circular Panic</span>
+                <p class="case-study-text">During seasonal weather alerts, a genuine 2020 government disaster circular was recirculated as "Breaking News Today", sparking widespread panic about sudden market and school closures.</p>
               </div>
               <div class="red-flags-box">
-                <div class="red-flags-heading">🚩 Red Flags To Watch</div>
+                <div class="red-flags-heading">🚩 FORENSIC RED FLAGS</div>
                 <ul class="red-flags-list">
                   <li>Dates cropped out, blurred, or missing from forwarded order copies.</li>
                   <li>Mentions government officials or committee heads who retired years ago.</li>
@@ -326,67 +328,69 @@
                 </ul>
               </div>
               <div class="pro-check-box">
-                <span class="pro-check-label">✅ Pro-Check Action</span>
-                Reverse image search the order screenshot or filter search results by date (Past 24 hours).
+                <span class="pro-check-label">🛡️ VERIFICATION PROTOCOL</span>
+                Reverse image search document screenshots or filter Google News search results by date (Past 24 hours).
               </div>
             </div>
-            <button type="button" class="link-more" aria-expanded="false">Inspect Case Study ➔</button>
+            <button type="button" class="link-more" aria-expanded="false">Inspect Case File ➔</button>
           </article>
 
-          <article class="polaroid" style="--rot:-0.8deg">
+          <!-- CARD 03: AUTHOR -->
+          <article class="polaroid">
             <div class="tape tape-g tape-tl" aria-hidden="true"></div>
             <div class="polaroid-photo">
-              <img src="{{ url_for('static', filename='img/author_check.jpg') }}" alt="Author Verification" class="polaroid-img" loading="lazy" />
+              <img src="{{ url_for('static', filename='img/author_check.jpg') }}" alt="Journalist Byline and Signature Integrity" class="polaroid-img" loading="lazy" />
             </div>
             <div class="card-header-row">
-              <span class="card-num">03</span>
-              <span class="card-tag-pill pill-green">✍️ Ghost Writer</span>
+              <span class="card-num">CHECK 03</span>
+              <span class="card-tag-pill pill-green">✍️ BYLINE INTEGRITY</span>
             </div>
             <h3>Author</h3>
-            <p class="card-q">Who wrote it?</p>
-            <p class="card-brief">A real journalist with verified previous reporting and byline.</p>
+            <p class="card-q"><span class="q-marker">Interrogate:</span> "Who wrote it?"</p>
+            <p class="card-brief">A real accredited journalist with verifiable previous reporting, public byline, and professional portfolio.</p>
             <div class="card-more hidden">
               <div class="case-study-box">
-                <span class="case-study-title">🚨 Real-World Case Study</span>
-                <span class="case-study-name">The Anonymous 'Swiss Doctor' Cancer Cure</span>
+                <span class="case-study-title">🚨 REAL-WORLD CASE FILE</span>
+                <span class="case-study-name">The Anonymous 'Swiss Specialist' Cancer Cure</span>
                 <p class="case-study-text">Viral blog posts attributed a "100% cure for cancer" to a "leading Swiss specialist". The article was unsigned, and the accompanying headshot was a stolen stock photo of a male model.</p>
               </div>
               <div class="red-flags-box">
-                <div class="red-flags-heading">🚩 Red Flags To Watch</div>
+                <div class="red-flags-heading">🚩 FORENSIC RED FLAGS</div>
                 <ul class="red-flags-list">
                   <li>Generic anonymous bylines: <em>"Admin"</em>, <em>"Staff Reporter"</em>, or <em>"Health Insider"</em>.</li>
-                  <li>Clicking author name leads to 404 or page with zero social presence or portfolio.</li>
-                  <li>Author photo shows AI artifacts (asymmetrical glasses, distorted earlobes).</li>
+                  <li>Clicking author name leads to a 404 or a profile with zero journalistic footprint.</li>
+                  <li>Author photo displays AI synthesis artifacts (asymmetrical glasses, distorted earlobes).</li>
                 </ul>
               </div>
               <div class="pro-check-box">
-                <span class="pro-check-label">✅ Pro-Check Action</span>
-                Search <code>"Author Name" journalist</code> on Google or check Muck Rack / LinkedIn.
+                <span class="pro-check-label">🛡️ VERIFICATION PROTOCOL</span>
+                Search <code>"Author Name" journalist</code> on Google, Muck Rack, or LinkedIn to inspect editorial history.
               </div>
             </div>
-            <button type="button" class="link-more" aria-expanded="false">Inspect Case Study ➔</button>
+            <button type="button" class="link-more" aria-expanded="false">Inspect Case File ➔</button>
           </article>
 
-          <article class="polaroid" style="--rot:1.4deg">
+          <!-- CARD 04: EVIDENCE -->
+          <article class="polaroid">
             <div class="tape tape-b tape-tr" aria-hidden="true"></div>
             <div class="polaroid-photo">
-              <img src="{{ url_for('static', filename='img/evidence_check.jpg') }}" alt="Deepfake & Evidence Verification" class="polaroid-img" loading="lazy" />
+              <img src="{{ url_for('static', filename='img/evidence_check.jpg') }}" alt="Biometric Deepfake and Media Forensics" class="polaroid-img" loading="lazy" />
             </div>
             <div class="card-header-row">
-              <span class="card-num">04</span>
-              <span class="card-tag-pill pill-blue">🤖 AI Deepfakes</span>
+              <span class="card-num">CHECK 04</span>
+              <span class="card-tag-pill pill-blue">🤖 AI DEEPFAKE DETECTION</span>
             </div>
             <h3>Evidence</h3>
-            <p class="card-q">What supports it?</p>
-            <p class="card-brief">Primary documents, verified recordings, and scientific consensus.</p>
+            <p class="card-q"><span class="q-marker">Interrogate:</span> "What supports it?"</p>
+            <p class="card-brief">Primary documents, verified recordings, official regulatory filings, and scientific consensus.</p>
             <div class="card-more hidden">
               <div class="case-study-box">
-                <span class="case-study-title">🚨 Real-World Case Study</span>
+                <span class="case-study-title">🚨 REAL-WORLD CASE FILE</span>
                 <span class="case-study-name">Deepfake Celebrity Investment Videos</span>
                 <p class="case-study-text">AI-generated deepfakes of high-profile industrial and sports celebrities appeared on Instagram reels, supposedly endorsing a secret automated cryptocurrency trading bot with guaranteed returns.</p>
               </div>
               <div class="red-flags-box">
-                <div class="red-flags-heading">🚩 Red Flags To Watch</div>
+                <div class="red-flags-heading">🚩 FORENSIC RED FLAGS</div>
                 <ul class="red-flags-list">
                   <li>Mouth movements slightly out-of-sync with speech; robotic vocal tone.</li>
                   <li>Unrealistic guarantees of 100% returns or instant wealth without risk.</li>
@@ -394,67 +398,69 @@
                 </ul>
               </div>
               <div class="pro-check-box">
-                <span class="pro-check-label">✅ Pro-Check Action</span>
-                Check the person's verified official social media handles or company press room.
+                <span class="pro-check-label">🛡️ VERIFICATION PROTOCOL</span>
+                Check the person's verified official social media handles, corporate press room, or PIB Fact Check archives.
               </div>
             </div>
-            <button type="button" class="link-more" aria-expanded="false">Inspect Case Study ➔</button>
+            <button type="button" class="link-more" aria-expanded="false">Inspect Case File ➔</button>
           </article>
 
-          <article class="polaroid" style="--rot:-1.2deg">
+          <!-- CARD 05: CROSS-CHECK -->
+          <article class="polaroid">
             <div class="tape tape-y tape-tl" aria-hidden="true"></div>
             <div class="polaroid-photo">
-              <img src="{{ url_for('static', filename='img/cross_check.jpg') }}" alt="Cross-Check Verification" class="polaroid-img" loading="lazy" />
+              <img src="{{ url_for('static', filename='img/cross_check.jpg') }}" alt="Global Newswire Multi-Source Corroboration" class="polaroid-img" loading="lazy" />
             </div>
             <div class="card-header-row">
-              <span class="card-num">05</span>
-              <span class="card-tag-pill pill-purple">📡 Viral Rumours</span>
+              <span class="card-num">CHECK 05</span>
+              <span class="card-tag-pill pill-purple">📡 NEWSWIRE CORROBORATION</span>
             </div>
             <h3>Cross-check</h3>
-            <p class="card-q">Who else reports it?</p>
-            <p class="card-brief">A monumental national event is always covered by multiple news wires.</p>
+            <p class="card-q"><span class="q-marker">Interrogate:</span> "Who else reports it?"</p>
+            <p class="card-brief">Major national or global events are always reported simultaneously across multiple independent news agencies.</p>
             <div class="card-more hidden">
               <div class="case-study-box">
-                <span class="case-study-title">🚨 Real-World Case Study</span>
-                <span class="case-study-name">"All ATMs Closing For 10 Days" Audio</span>
+                <span class="case-study-title">🚨 REAL-WORLD CASE FILE</span>
+                <span class="case-study-name">"All ATMs Closing Nationwide" Viral Audio Panic</span>
                 <p class="case-study-text">A viral 40-second voice note circulated on family groups claiming the Reserve Bank was shutting all ATMs nationwide for a week. Citizens rushed to withdraw cash before fact-checkers intervened.</p>
               </div>
               <div class="red-flags-box">
-                <div class="red-flags-heading">🚩 Red Flags To Watch</div>
+                <div class="red-flags-heading">🚩 FORENSIC RED FLAGS</div>
                 <ul class="red-flags-list">
-                  <li>The claim exists exclusively as a forwarded audio clip or single fringe blog.</li>
-                  <li>Major national news channels and news wires (PTI, ANI, Reuters) have zero reports.</li>
+                  <li>Claim exists exclusively as a forwarded audio voice note, single tweet, or anonymous blog.</li>
+                  <li>Major national news channels and news wires (PTI, ANI, Reuters, BBC) have zero reports.</li>
                   <li>Forwarded tag marked <em>"Forwarded many times"</em> accompanied by emotional urgency.</li>
                 </ul>
               </div>
               <div class="pro-check-box">
-                <span class="pro-check-label">✅ Pro-Check Action</span>
-                Search the headline on Google News. If only 1 obscure blog reports it, it is likely false.
+                <span class="pro-check-label">🛡️ VERIFICATION PROTOCOL</span>
+                Search headline keywords on Google News. If only 1 obscure blog reports it, it is likely false.
               </div>
             </div>
-            <button type="button" class="link-more" aria-expanded="false">Inspect Case Study ➔</button>
+            <button type="button" class="link-more" aria-expanded="false">Inspect Case File ➔</button>
           </article>
 
-          <article class="polaroid" style="--rot:0.9deg">
+          <!-- CARD 06: CONTEXT -->
+          <article class="polaroid">
             <div class="tape tape-p tape-tr" aria-hidden="true"></div>
             <div class="polaroid-photo">
-              <img src="{{ url_for('static', filename='img/context_check.jpg') }}" alt="Context & Clickbait Verification" class="polaroid-img" loading="lazy" />
+              <img src="{{ url_for('static', filename='img/context_check.jpg') }}" alt="Context and Clickbait Deconstruction" class="polaroid-img" loading="lazy" />
             </div>
             <div class="card-header-row">
-              <span class="card-num">06</span>
-              <span class="card-tag-pill pill-cyan">🎯 Deceptive Clickbait</span>
+              <span class="card-num">CHECK 06</span>
+              <span class="card-tag-pill pill-cyan">🎯 CONTEXT &amp; FRAMING</span>
             </div>
             <h3>Context</h3>
-            <p class="card-q">Headline match?</p>
-            <p class="card-brief">Read past rage-bait headlines to inspect the actual facts and context.</p>
+            <p class="card-q"><span class="q-marker">Interrogate:</span> "Does headline match reality?"</p>
+            <p class="card-brief">Read past sensational rage-bait headlines to inspect the unedited video, full transcript, and timing of events.</p>
             <div class="card-more hidden">
               <div class="case-study-box">
-                <span class="case-study-title">🚨 Real-World Case Study</span>
+                <span class="case-study-title">🚨 REAL-WORLD CASE FILE</span>
                 <span class="case-study-name">The Cropped 8-Second Speech Video</span>
                 <p class="case-study-text">A 10-second video of an official was cut to sound like a threat: <em>"We will demolish everything"</em>. The full uncut 3-minute video revealed they were explaining demolition of illegal encroachments following a court order.</p>
               </div>
               <div class="red-flags-box">
-                <div class="red-flags-heading">🚩 Red Flags To Watch</div>
+                <div class="red-flags-heading">🚩 FORENSIC RED FLAGS</div>
                 <ul class="red-flags-list">
                   <li>ALL-CAPS screaming headlines with excessive emojis (🚨🚨‼️).</li>
                   <li>Videos trimmed abruptly right before or after a controversial sentence.</li>
@@ -462,11 +468,11 @@
                 </ul>
               </div>
               <div class="pro-check-box">
-                <span class="pro-check-label">✅ Pro-Check Action</span>
-                Always watch the uncut full press conference or read the full article before sharing.
+                <span class="pro-check-label">🛡️ VERIFICATION PROTOCOL</span>
+                Always locate the uncut full press conference or read the full article before sharing.
               </div>
             </div>
-            <button type="button" class="link-more" aria-expanded="false">Inspect Case Study ➔</button>
+            <button type="button" class="link-more" aria-expanded="false">Inspect Case File ➔</button>
           </article>
         </div>
 
