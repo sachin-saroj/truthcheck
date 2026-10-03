@@ -15,6 +15,7 @@ from flask import Flask, jsonify, make_response, render_template, request
 from detector.detector import NewsDetector
 from detector.preprocessing import first_line
 from services.fact_checker import FactChecker
+from services.fraud_detector import FraudDetector
 from services.verification import VerificationService
 
 load_dotenv()
@@ -29,12 +30,14 @@ app.config["TEMPLATES_AUTO_RELOAD"] = True
 detector = NewsDetector()
 fact_checker = FactChecker()
 verification = VerificationService()
+fraud_detector = FraudDetector()
 
 # ------------------------------------------------------------------ lifecycle
 with app.app_context():
     metrics = detector.ensure_ready()
     logger.info("Model ready: %s", metrics)
     logger.info("FactChecker ready: AI model=%s, configured=%s", fact_checker.ai.model, fact_checker.ai.is_configured)
+    logger.info("FraudDetector ready: known_scams=%d", len(fraud_detector.scam_matcher.patterns))
 
 
 VERIFICATION_TIPS = {
@@ -145,6 +148,10 @@ def health():
             "configured": fact_checker.ai.is_configured,
             "search": "ready",
         },
+        "fraud_detector": {
+            "status": "ready",
+            "patterns": len(fraud_detector.scam_matcher.patterns),
+        },
     })
 
 
@@ -206,6 +213,27 @@ def analyze():
         "tips": fact_result["tips"],
         "elapsed_ms": fact_result["elapsed_ms"],
     })
+
+
+@app.post("/api/analyze-fraud")
+def analyze_fraud():
+    payload = request.get_json(silent=True) or {}
+    text = (payload.get("text") or payload.get("message") or "").strip()
+    auth_header = payload.get("authentication_results") or payload.get("auth_header")
+
+    # Extract client IP supporting proxy headers
+    forwarded_for = request.headers.get("X-Forwarded-For", "").strip()
+    client_ip = forwarded_for.split(",")[0].strip() if forwarded_for else (request.remote_addr or "127.0.0.1")
+
+    res = fraud_detector.analyze(text=text, auth_header=auth_header, client_ip=client_ip)
+    if "error" in res:
+        status_code = res.get("status_code", 400)
+        resp = jsonify({"error": res["error"]})
+        if res.get("retry_after"):
+            resp.headers["Retry-After"] = str(res["retry_after"])
+        return resp, status_code
+
+    return jsonify(res)
 
 
 if __name__ == "__main__":

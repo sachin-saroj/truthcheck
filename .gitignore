@@ -26,3 +26,7 @@ Thumbs.db
 .idea/
 .vscode/
 *.log
+
+# Reference Archives
+*.zip
+kangal_ref/

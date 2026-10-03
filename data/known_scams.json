@@ -1,0 +1,111 @@
+{
+  "version": "1.0",
+  "description": "Curated database of high-prevalence social engineering and scam patterns",
+  "patterns": [
+    {
+      "id": "bank_kyc_suspension",
+      "title": "Bank KYC Expiry / Account Block Scam",
+      "category": "BANK_IMPERSONATION",
+      "advisory": "Banks never send SMS with external links asking to update KYC, PAN, or Aadhaar.",
+      "keywords": ["sbi", "hdfc", "icici", "bank", "kyc", "pan", "blocked", "suspended", "aadhaar", "debit card", "unblock", "yono"],
+      "levers": {
+        "urgency": {"tactic": "account_freeze", "intensity": 3},
+        "authority": {"impersonates": "financial", "credibilityTricks": ["formal_tone", "reference_number"]},
+        "incentive": {"type": "fear", "hook": "account_loss", "intensity": 3},
+        "callToAction": {"action": "input_credentials", "friction": "low"},
+        "personalization": {"level": "broadcast", "signals": []},
+        "isolation": {"tactic": "none", "intensity": 0}
+      }
+    },
+    {
+      "id": "upi_collect_fraud",
+      "title": "UPI Payment / Collect Request Fraud",
+      "category": "UPI_FRAUD",
+      "advisory": "Entering your UPI PIN always deducts money from your account — you never enter a PIN to receive money.",
+      "keywords": ["upi", "paytm", "phonepe", "gpay", "received rs", "credited", "enter pin to receive", "approve request", "refund", "cashback"],
+      "levers": {
+        "urgency": {"tactic": "deadline", "intensity": 2},
+        "authority": {"impersonates": "financial", "credibilityTricks": ["formal_tone"]},
+        "incentive": {"type": "reward", "hook": "refund", "intensity": 2},
+        "callToAction": {"action": "transfer_money", "friction": "low"},
+        "personalization": {"level": "segmented", "signals": ["transaction_history"]},
+        "isolation": {"tactic": "none", "intensity": 0}
+      }
+    },
+    {
+      "id": "electricity_bill_cutoff",
+      "title": "Electricity Bill Disconnection Fraud",
+      "category": "UTILITY_IMPERSONATION",
+      "advisory": "State electricity boards never disconnect power via personal WhatsApp messages or private cell numbers.",
+      "keywords": ["electricity", "power", "disconnected", "cutoff", "bill", "tonight", "officer", "helpline", "electric office"],
+      "levers": {
+        "urgency": {"tactic": "account_freeze", "intensity": 3},
+        "authority": {"impersonates": "government", "credibilityTricks": ["formal_tone", "reference_number"]},
+        "incentive": {"type": "fear", "hook": "penalty", "intensity": 3},
+        "callToAction": {"action": "call_number", "friction": "mid"},
+        "personalization": {"level": "broadcast", "signals": []},
+        "isolation": {"tactic": "direct_channel", "intensity": 2}
+      }
+    },
+    {
+      "id": "telegram_part_time_job",
+      "title": "Part-Time Review / Telegram Task Scam",
+      "category": "JOB_SCAM",
+      "advisory": "Legitimate employers never ask candidates to deposit money or complete prepaid cryptocurrency tasks to receive earnings.",
+      "keywords": ["part-time", "work from home", "earn", "salary", "youtube", "telegram", "deposit", "prepaid task", "job", "manager on telegram"],
+      "levers": {
+        "urgency": {"tactic": "limited_offer", "intensity": 0},
+        "authority": {"impersonates": "platform", "credibilityTricks": []},
+        "incentive": {"type": "reward", "hook": "prize", "intensity": 3},
+        "callToAction": {"action": "call_number", "friction": "mid"},
+        "personalization": {"level": "broadcast", "signals": []},
+        "isolation": {"tactic": "direct_channel", "intensity": 2}
+      }
+    },
+    {
+      "id": "courier_customs_parcel",
+      "title": "Customs Duty / Courier Clearance Scam",
+      "category": "DELIVERY_SCAM",
+      "advisory": "Customs authorities do not request duty clearance fees via personal links, gift cards, or UPI IDs.",
+      "keywords": ["customs", "parcel", "courier", "package", "held", "duty", "clearance fee", "delivery boy", "speed post", "dhl", "fedex"],
+      "levers": {
+        "urgency": {"tactic": "deadline", "intensity": 2},
+        "authority": {"impersonates": "delivery", "credibilityTricks": ["reference_number"]},
+        "incentive": {"type": "fear", "hook": "penalty", "intensity": 2},
+        "callToAction": {"action": "transfer_money", "friction": "low"},
+        "personalization": {"level": "targeted", "signals": ["real_name"]},
+        "isolation": {"tactic": "none", "intensity": 0}
+      }
+    },
+    {
+      "id": "lottery_reward_recharge",
+      "title": "Free Recharge / Lottery Prize Phishing",
+      "category": "LOTTERY_SCAM",
+      "advisory": "Government and telecom operators do not distribute free recharges or multi-lakh lottery funds through viral links.",
+      "keywords": ["congratulations", "lottery", "won rs", "free recharge", "lucky draw", "claim prize", "free 5g", "voucher", "kbc lottery"],
+      "levers": {
+        "urgency": {"tactic": "limited_offer", "intensity": 2},
+        "authority": {"impersonates": "platform", "credibilityTricks": ["logo_mimicry"]},
+        "incentive": {"type": "reward", "hook": "prize", "intensity": 3},
+        "callToAction": {"action": "click_link", "friction": "low"},
+        "personalization": {"level": "broadcast", "signals": []},
+        "isolation": {"tactic": "none", "intensity": 0}
+      }
+    },
+    {
+      "id": "executive_boss_impersonation",
+      "title": "CEO / Executive Emergency Task Impersonation",
+      "category": "EXECUTIVE_IMPERSONATION",
+      "advisory": "Executives do not request urgent confidential wire transfers or gift cards over unverified channels.",
+      "keywords": ["ceo", "director", "boss", "urgent task", "in a meeting", "do not call", "apple gift card", "amazon voucher", "wire transfer", "strictly confidential"],
+      "levers": {
+        "urgency": {"tactic": "deadline", "intensity": 3},
+        "authority": {"impersonates": "executive", "credibilityTricks": ["formal_tone"]},
+        "incentive": {"type": "fear", "hook": "penalty", "intensity": 2},
+        "callToAction": {"action": "transfer_money", "friction": "low"},
+        "personalization": {"level": "targeted", "signals": ["internal_jargon", "real_name"]},
+        "isolation": {"tactic": "secrecy", "intensity": 3}
+      }
+    }
+  ]
+}

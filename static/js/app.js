@@ -40,6 +40,7 @@
   });
 
   /* ======================================================== DETECTOR */
+  /* ======================================================== DETECTOR */
   const newsInput = $("#newsInput");
   const charCount = $("#charCount");
   const analyzeBtn = $("#analyzeBtn");
@@ -48,7 +49,16 @@
   const errorBox = $("#errorBox");
   const resultCard = $("#resultCard");
 
-  const EXAMPLES = {
+  const modeNewsBtn = $("#modeNewsBtn");
+  const modeFraudBtn = $("#modeFraudBtn");
+  const detectTitle = $("#detectTitle");
+  const detectSubtitle = $("#detectSubtitle");
+  const newsSamples = $("#newsSamples");
+  const fraudSamples = $("#fraudSamples");
+
+  let currentMode = "news"; // "news" or "fraud"
+
+  const NEWS_EXAMPLES = {
     report:
       "India won the ICC Men's T20 World Cup in 2024 defeating South Africa in the final match in Barbados.",
     suspicious:
@@ -59,6 +69,47 @@
       "ISRO successfully performed the soft landing of Chandrayaan-3 near the south pole of the Moon.",
   };
 
+  const FRAUD_EXAMPLES = {
+    kyc: "SBI Alert: Dear customer, your YONO account will be blocked today. Please update your PAN immediately by clicking: http://sbi-kyc-update.xyz",
+    upi: "Dear User, You received ₹2,500 cashback reward from PhonePe! Approve collect request and enter UPI PIN here: http://phonepe-reward-claim.online",
+    electricity: "Urgent Notice: Your electricity power will be disconnected tonight at 9:30 PM due to unpaid previous month bill. Call Electricity Officer immediately at 9876543210.",
+    job: "Part-time Work From Home! Earn ₹3,000 daily by liking YouTube videos. Contact our manager on Telegram @work_hr_india now.",
+    safe: "Your A/C XX4589 is credited by ₹15,000 on 03-Oct-26 via UPI Ref 427819283741. Available balance ₹42,500. - HDFC Bank",
+  };
+
+  function setMode(mode) {
+    currentMode = mode;
+    if (mode === "news") {
+      if (modeNewsBtn) modeNewsBtn.classList.add("active");
+      if (modeFraudBtn) modeFraudBtn.classList.remove("active");
+      if (detectTitle) detectTitle.textContent = "Real-world Fact Checker";
+      if (detectSubtitle)
+        detectSubtitle.textContent =
+          "News detector & fact verifier — paste any news headline, tweet, viral post, or fact claim…";
+      newsInput.placeholder =
+        "Paste any real-world news, headline, claim or viral fact here...";
+      analyzeBtn.textContent = "Verify Facts ★";
+      if (newsSamples) newsSamples.classList.remove("hidden");
+      if (fraudSamples) fraudSamples.classList.add("hidden");
+    } else {
+      if (modeFraudBtn) modeFraudBtn.classList.add("active");
+      if (modeNewsBtn) modeNewsBtn.classList.remove("active");
+      if (detectTitle) detectTitle.textContent = "Message & Fraud Safety";
+      if (detectSubtitle)
+        detectSubtitle.textContent =
+          "Scam & phishing detector — paste any suspicious SMS, WhatsApp message, email, UPI alert, or link…";
+      newsInput.placeholder =
+        "Paste any suspicious SMS, WhatsApp message, email, UPI alert, or link here...";
+      analyzeBtn.textContent = "Check Message Safety ★";
+      if (newsSamples) newsSamples.classList.add("hidden");
+      if (fraudSamples) fraudSamples.classList.remove("hidden");
+    }
+    resultCard.classList.add("hidden");
+    errorBox.classList.add("hidden");
+  }
+
+  if (modeNewsBtn) modeNewsBtn.addEventListener("click", () => setMode("news"));
+  if (modeFraudBtn) modeFraudBtn.addEventListener("click", () => setMode("fraud"));
 
   newsInput.addEventListener("input", () => {
     charCount.textContent = `${newsInput.value.length} / 8000`;
@@ -74,7 +125,16 @@
 
   $$("[data-example]").forEach((btn) =>
     btn.addEventListener("click", () => {
-      newsInput.value = EXAMPLES[btn.dataset.example] || "";
+      newsInput.value = NEWS_EXAMPLES[btn.dataset.example] || "";
+      newsInput.dispatchEvent(new Event("input"));
+      errorBox.classList.add("hidden");
+      newsInput.focus();
+    })
+  );
+
+  $$("[data-fraud-example]").forEach((btn) =>
+    btn.addEventListener("click", () => {
+      newsInput.value = FRAUD_EXAMPLES[btn.dataset.fraudExample] || "";
       newsInput.dispatchEvent(new Event("input"));
       errorBox.classList.add("hidden");
       newsInput.focus();
@@ -96,13 +156,16 @@
     errorBox.classList.add("hidden");
 
     if (text.length === 0) {
-      errorBox.textContent = "Paste a headline or article to begin.";
+      errorBox.textContent = currentMode === "fraud"
+        ? "Paste a message, SMS, or email to begin."
+        : "Paste a headline or article to begin.";
       errorBox.classList.remove("hidden");
       newsInput.focus();
       return;
     }
-    if (text.length < 20) {
-      errorBox.textContent = "Please enter at least 20 characters.";
+    const minChars = currentMode === "fraud" ? 10 : 20;
+    if (text.length < minChars) {
+      errorBox.textContent = `Please enter at least ${minChars} characters.`;
       errorBox.classList.remove("hidden");
       newsInput.focus();
       return;
@@ -115,8 +178,10 @@
     spinner.classList.remove("hidden");
     resultCard.classList.add("hidden");
 
+    const endpoint = currentMode === "fraud" ? "/api/analyze-fraud" : "/api/analyze";
+
     try {
-      const res = await fetch("/api/analyze", {
+      const res = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ text }),
@@ -136,7 +201,7 @@
       analyzing = false;
       analyzeBtn.disabled = false;
       analyzeBtn.classList.remove("is-loading");
-      analyzeBtn.textContent = "Verify Facts ★";
+      analyzeBtn.textContent = currentMode === "fraud" ? "Check Message Safety ★" : "Verify Facts ★";
       spinner.classList.add("hidden");
     }
   });
@@ -174,7 +239,8 @@
   }
 
   function renderResult(data) {
-    const v = data.verdict;
+    const isFraud = data.mode === "fraud";
+    const v = data.verdict || { id: "unknown", label: "ANALYZED", emoji: "✦", tone: "ok" };
     const verdictBox = $("#resultVerdict");
     verdictBox.className = `result-verdict tone-${v.tone}`;
     resultCard.className = `result tone-${v.tone}`;
@@ -185,28 +251,92 @@
       bad: "🔴",
       warn: "🟡",
     };
-    $("#verdictEmoji").textContent = emojiMap[v.tone] || v.emoji || "✦";
+    $("#verdictEmoji").textContent = v.emoji || emojiMap[v.tone] || "✦";
     $("#verdictLabel").textContent = v.label || "VERDICT";
 
-    // Exact contract: "Confidence: 94%"
-    const score = Number.isFinite(data.confidence)
-      ? data.confidence
-      : Number.isFinite(data.credibility_score)
-      ? data.credibility_score
-      : 50;
-    $("#confidencePill").textContent = `Confidence: ${score}%`;
+    // Kicker & Score Pill
+    const kickerEl = $("#resultKickerText");
+    if (kickerEl) {
+      kickerEl.textContent = isFraud ? "MESSAGE SAFETY ✎" : "ANALYSIS RESULT ✎";
+    }
+
+    const confidencePill = $("#confidencePill");
+    if (confidencePill) {
+      if (isFraud && Number.isFinite(data.risk_score)) {
+        confidencePill.textContent = `Risk Score: ${data.risk_score}`;
+      } else {
+        const score = Number.isFinite(data.confidence)
+          ? data.confidence
+          : Number.isFinite(data.credibility_score)
+          ? data.credibility_score
+          : 50;
+        confidencePill.textContent = `Confidence: ${score}%`;
+      }
+    }
+
+    // Status Badge (e.g. UNVERIFIED, VERIFIED FRAUD)
+    const statusBadge = $("#statusBadge");
+    const statusBadgeText = $("#statusBadgeText");
+    if (statusBadge && statusBadgeText) {
+      if (isFraud && data.verification_status) {
+        statusBadgeText.textContent = data.verification_status.replace(/_/g, " ");
+        statusBadge.classList.remove("hidden");
+      } else {
+        statusBadge.classList.add("hidden");
+      }
+    }
 
     // WHY Section (2-3 short sentences)
     $("#resultSummary").textContent = data.summary || "Analysis complete.";
+
+    // Signals Section (Fraud mode)
+    const signalsBlock = $("#signalsBlock");
+    const signalsList = $("#signalsList");
+    if (signalsBlock && signalsList) {
+      const signals = data.signals || [];
+      if (isFraud && signals.length > 0) {
+        signalsList.innerHTML = "";
+        signals.forEach((sig) => {
+          const li = document.createElement("li");
+          li.textContent = typeof sig === "string" ? sig : `${sig.label || "Signal"}: ${sig.detail || ""}`;
+          signalsList.appendChild(li);
+        });
+        signalsBlock.classList.remove("hidden");
+      } else {
+        signalsBlock.classList.add("hidden");
+      }
+    }
+
+    // Recommendation Section (Fraud mode)
+    const recBlock = $("#recommendationBlock");
+    const recBody = $("#recommendationBody");
+    if (recBlock && recBody) {
+      if (isFraud && data.recommendation) {
+        recBody.textContent = data.recommendation;
+        recBlock.classList.remove("hidden");
+      } else {
+        recBlock.classList.add("hidden");
+      }
+    }
+
+    // EVIDENCE Section Heading
+    const evHeading = $("#evidenceHeading");
+    if (evHeading) {
+      evHeading.textContent = isFraud ? "EVIDENCE & ADVISORIES" : "EVIDENCE";
+    }
 
     // Render AI Badge
     const aiBadge = $("#aiBadge");
     if (aiBadge) {
       const isAi = data.ai_info?.is_ai_verified;
-      const model = data.ai_info?.model || "Qwen 3.8 27B";
-      aiBadge.innerHTML = isAi
-        ? `<span>🤖 Verified by <strong>${escapeHtml(model)}</strong></span> · Live Web Search`
-        : `<span>🔍 Real-Time Web Evidence Search</span> · Live Sources`;
+      const model = data.ai_info?.model || (isFraud ? "TruthCheck Threat Engine" : "Qwen 3.8 27B");
+      if (isFraud) {
+        aiBadge.innerHTML = `<span>🛡️ <strong>${escapeHtml(model)}</strong></span> · Threat Intelligence`;
+      } else {
+        aiBadge.innerHTML = isAi
+          ? `<span>🤖 Verified by <strong>${escapeHtml(model)}</strong></span> · Live Web Search`
+          : `<span>🔍 Real-Time Web Evidence Search</span> · Live Sources`;
+      }
     }
 
     // Render API Notice if key is missing
@@ -219,7 +349,7 @@
       }
     }
 
-    // EVIDENCE Section (Bullet points: • Source 1 — details)
+    // EVIDENCE Section (Bullet points)
     const evidenceList = $("#evidenceList");
     if (evidenceList) {
       evidenceList.innerHTML = "";
@@ -260,7 +390,7 @@
           <p class="source-card-snippet">${escapeHtml(src.snippet || "Click to view original reporting and full context.")}</p>
           <div class="source-card-footer">
             <span>${escapeHtml(dateStr)}</span>
-            <span class="source-card-link-text">Read Article ↗</span>
+            <span class="source-card-link-text">Read Source ↗</span>
           </div>
         `;
         sourcesGrid.appendChild(card);

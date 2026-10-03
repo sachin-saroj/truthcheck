@@ -92,16 +92,23 @@
         <header class="section-head reveal">
           <div class="tab-banner tab-red"><span>★ 01</span> DETECT</div>
           <div class="section-titles">
-            <h2>Real-world Fact Checker</h2>
-            <p class="hand-sub">News detector &amp; fact verifier — paste any news headline, tweet, viral post, or fact claim…</p>
+            <h2 id="detectTitle">Real-world Fact Checker</h2>
+            <p class="hand-sub" id="detectSubtitle">News detector &amp; fact verifier — paste any news headline, tweet, viral post, or fact claim…</p>
           </div>
-
+          <div class="mode-toggle-container" role="tablist" aria-label="Detection Mode">
+            <button type="button" class="btn-mode active" id="modeNewsBtn" role="tab" aria-selected="true">
+              <span class="mode-icon">📰</span> News &amp; Claim
+            </button>
+            <button type="button" class="btn-mode" id="modeFraudBtn" role="tab" aria-selected="false">
+              <span class="mode-icon">🛡️</span> Message Safety
+            </button>
+          </div>
         </header>
 
         <div class="detector clip-card reveal">
           <div class="tape tape-blue tape-l" aria-hidden="true"></div>
           <div class="tape tape-yellow tape-r" aria-hidden="true"></div>
-          <label class="sr-only" for="newsInput">News text</label>
+          <label class="sr-only" for="newsInput">Input text</label>
           <textarea
             id="newsInput"
             rows="7"
@@ -115,17 +122,25 @@
               <button type="button" class="btn btn-chunk btn-black" id="analyzeBtn">Verify Facts ★</button>
             </span>
           </div>
-          <div class="samples">
+          <div class="samples" id="newsSamples">
             <span class="hand-label">try —</span>
             <button type="button" class="marker marker-y" data-example="report">World Cup</button>
             <button type="button" class="marker marker-p" data-example="suspicious">Free Scheme</button>
             <button type="button" class="marker marker-g" data-example="social">Tech News</button>
             <button type="button" class="marker marker-b" data-example="claim">Moon Mission</button>
           </div>
+          <div class="samples hidden" id="fraudSamples">
+            <span class="hand-label">try scams —</span>
+            <button type="button" class="marker marker-p" data-fraud-example="kyc">Bank KYC Block</button>
+            <button type="button" class="marker marker-y" data-fraud-example="upi">UPI Collect Pin</button>
+            <button type="button" class="marker marker-g" data-fraud-example="electricity">Power Cutoff</button>
+            <button type="button" class="marker marker-b" data-fraud-example="job">Telegram Job</button>
+            <button type="button" class="marker marker-y" data-fraud-example="safe">Safe Credit SMS</button>
+          </div>
           <div class="loading-steps hidden" id="spinner" role="status" aria-live="polite">
-            <span class="loading-line">🔍 Searching live internet &amp; news for real evidence…</span>
-            <span class="loading-line">🤖 Cross-referencing facts with high-speed AI…</span>
-            <span class="loading-line">★ Synthesizing verdict &amp; verified sources…</span>
+            <span class="loading-line" id="spinnerStep1">🔍 Searching live internet &amp; news for real evidence…</span>
+            <span class="loading-line" id="spinnerStep2">🤖 Cross-referencing facts with high-speed AI…</span>
+            <span class="loading-line" id="spinnerStep3">★ Synthesizing verdict &amp; verified sources…</span>
           </div>
           <div class="alert hidden" id="errorBox" role="alert"></div>
         </div>
@@ -135,12 +150,15 @@
           <div class="tape tape-pink tape-c" aria-hidden="true"></div>
           <header class="result-head">
             <div class="result-kicker-row">
-              <span class="hand-label">ANALYSIS RESULT ✎</span>
-              <span class="confidence mono-meta" id="confidencePill" title="Confidence score">Confidence: 94%</span>
+              <span class="hand-label" id="resultKickerText">ANALYSIS RESULT ✎</span>
+              <span class="confidence mono-meta" id="confidencePill" title="Score">Confidence: 94%</span>
             </div>
             <div class="result-verdict" id="resultVerdict">
               <span class="verdict-emoji" id="verdictEmoji" aria-hidden="true">🟢</span>
               <span class="verdict-stamp" id="verdictLabel">SUPPORTED</span>
+            </div>
+            <div class="verification-badge hidden" id="statusBadge">
+              <span class="mono-meta" id="statusBadgeText">UNVERIFIED</span>
             </div>
             <div class="ai-badge" id="aiBadge">
               <span>🤖 Qwen 3.8 27B</span> · Live Web Search
@@ -156,9 +174,15 @@
             <p class="why-body" id="resultSummary"></p>
           </section>
 
+          <!-- RISK SIGNALS SECTION (FRAUD MODE) -->
+          <section class="contract-section signals-section hidden" id="signalsBlock">
+            <h3 class="contract-heading">RISK SIGNALS</h3>
+            <ul class="contract-evidence-list" id="signalsList"></ul>
+          </section>
+
           <!-- EVIDENCE SECTION -->
           <section class="contract-section evidence-section" id="evidenceBlock">
-            <h3 class="contract-heading">EVIDENCE</h3>
+            <h3 class="contract-heading" id="evidenceHeading">EVIDENCE</h3>
             <ul class="contract-evidence-list" id="evidenceList"></ul>
 
             <div class="sources-toggle-container">
@@ -173,11 +197,17 @@
             </div>
           </section>
 
+          <!-- RECOMMENDATION SECTION (FRAUD MODE) -->
+          <section class="contract-section recommendation-section hidden" id="recommendationBlock">
+            <h3 class="contract-heading">RECOMMENDATION</h3>
+            <p class="why-body" id="recommendationBody"></p>
+          </section>
+
           <!-- DIVIDER & FOOTER -->
           <footer class="contract-footer">
             <hr class="contract-rule" />
             <div class="contract-actions">
-              <button type="button" class="btn btn-chunk btn-yellow btn-md" id="checkAnotherBtn">Check Another Story ↺</button>
+              <button type="button" class="btn btn-chunk btn-yellow btn-md" id="checkAnotherBtn">Check Another Item ↺</button>
             </div>
           </footer>
         </article>

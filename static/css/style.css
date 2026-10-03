@@ -1508,3 +1508,64 @@ textarea:focus { outline: none; box-shadow: inset 3px 3px 0 rgba(0,0,0,0.04), 0 
   .loading-line { opacity: 1; }
   * { transition-duration: 0.01ms !important; }
 }
+
+/* -------------------------------------------------- mode toggle (news vs fraud) */
+.mode-toggle-container {
+  display: flex;
+  gap: 8px;
+  background: var(--paper-2);
+  border: var(--border-ink);
+  padding: 4px;
+  border-radius: 999px;
+  box-shadow: var(--shadow-hard-sm);
+  margin-left: auto;
+}
+.btn-mode {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 800;
+  border: none;
+  background: transparent;
+  padding: 8px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  color: var(--ink);
+  transition: all 0.15s ease;
+}
+.btn-mode:hover {
+  background: rgba(0,0,0,0.05);
+}
+.btn-mode.active {
+  background: var(--ink);
+  color: var(--yellow);
+  box-shadow: 2px 2px 0 rgba(0,0,0,0.15);
+}
+.btn-mode .mode-icon {
+  font-size: 1.05rem;
+}
+
+.verification-badge {
+  display: inline-block;
+  margin: 6px auto 10px;
+  background: var(--paper-2);
+  border: 2px solid var(--ink);
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-weight: 800;
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+.recommendation-section .why-body {
+  border-left: 4px solid var(--ink);
+  padding-left: 12px;
+  font-weight: 700;
+  background: rgba(255, 217, 61, 0.15);
+  padding: 10px 14px;
+  border-radius: 4px;
+}
