@@ -1,5 +1,5 @@
 /* TruthCheck — single-page frontend logic
-   Detector · Results · Quiz · History (localStorage) */
+   News & Claim · Message Safety · Results · History (localStorage) */
 (() => {
   "use strict";
 
@@ -21,14 +21,28 @@
   );
 
   // Active section highlighting
-  const sectionIds = ["detect", "learn", "quiz", "history"];
+  const sectionIds = ["detect", "learn", "history"];
+  let currentActiveSection = "detect";
+
+  const updateNavActive = () => {
+    $$(".nav-links a").forEach((a) => {
+      const feat = a.getAttribute("data-feature");
+      if (feat) {
+        const isDetectActive = currentActiveSection === "detect";
+        a.classList.toggle("active", isDetectActive && currentMode === feat);
+      } else {
+        const href = a.getAttribute("href");
+        a.classList.toggle("active", href === `#${currentActiveSection}`);
+      }
+    });
+  };
+
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          $$(".nav-links a").forEach((a) =>
-            a.classList.toggle("active", a.getAttribute("href") === `#${entry.target.id}`)
-          );
+          currentActiveSection = entry.target.id;
+          updateNavActive();
         }
       });
     },
@@ -49,8 +63,11 @@
   const errorBox = $("#errorBox");
   const resultCard = $("#resultCard");
 
-  const modeNewsBtn = $("#modeNewsBtn");
-  const modeFraudBtn = $("#modeFraudBtn");
+  const featureNewsCard = $("#featureNewsCard");
+  const featureFraudCard = $("#featureFraudCard");
+  const newsStatusBadge = $("#newsStatusBadge");
+  const fraudStatusBadge = $("#fraudStatusBadge");
+  const workspaceTabBanner = $("#workspaceTabBanner");
   const detectTitle = $("#detectTitle");
   const detectSubtitle = $("#detectSubtitle");
   const newsSamples = $("#newsSamples");
@@ -77,11 +94,29 @@
     safe: "Your A/C XX4589 is credited by ₹15,000 on 03-Oct-26 via UPI Ref 427819283741. Available balance ₹42,500. - HDFC Bank",
   };
 
-  function setMode(mode) {
-    currentMode = mode;
-    if (mode === "news") {
-      if (modeNewsBtn) modeNewsBtn.classList.add("active");
-      if (modeFraudBtn) modeFraudBtn.classList.remove("active");
+  function setMode(mode, scroll = false) {
+    currentMode = mode === "fraud" ? "fraud" : "news";
+    if (currentMode === "news") {
+      if (featureNewsCard) {
+        featureNewsCard.classList.add("active");
+        featureNewsCard.setAttribute("aria-selected", "true");
+      }
+      if (featureFraudCard) {
+        featureFraudCard.classList.remove("active");
+        featureFraudCard.setAttribute("aria-selected", "false");
+      }
+      if (newsStatusBadge) {
+        newsStatusBadge.textContent = "● ACTIVE TOOL";
+        newsStatusBadge.classList.add("active");
+      }
+      if (fraudStatusBadge) {
+        fraudStatusBadge.textContent = "SELECT TOOL ➔";
+        fraudStatusBadge.classList.remove("active");
+      }
+      if (workspaceTabBanner) {
+        workspaceTabBanner.className = "tab-banner tab-red";
+        workspaceTabBanner.innerHTML = "<span>★ 01</span> NEWS VERIFIER";
+      }
       if (detectTitle) detectTitle.textContent = "Real-world Fact Checker";
       if (detectSubtitle)
         detectSubtitle.textContent =
@@ -91,9 +126,33 @@
       analyzeBtn.textContent = "Verify Facts ★";
       if (newsSamples) newsSamples.classList.remove("hidden");
       if (fraudSamples) fraudSamples.classList.add("hidden");
+      const s1 = $("#spinnerStep1");
+      const s2 = $("#spinnerStep2");
+      const s3 = $("#spinnerStep3");
+      if (s1) s1.textContent = "🔍 Searching live internet & news for real evidence…";
+      if (s2) s2.textContent = "🤖 Cross-referencing facts with high-speed AI…";
+      if (s3) s3.textContent = "★ Synthesizing verdict & verified sources…";
     } else {
-      if (modeFraudBtn) modeFraudBtn.classList.add("active");
-      if (modeNewsBtn) modeNewsBtn.classList.remove("active");
+      if (featureFraudCard) {
+        featureFraudCard.classList.add("active");
+        featureFraudCard.setAttribute("aria-selected", "true");
+      }
+      if (featureNewsCard) {
+        featureNewsCard.classList.remove("active");
+        featureNewsCard.setAttribute("aria-selected", "false");
+      }
+      if (fraudStatusBadge) {
+        fraudStatusBadge.textContent = "● ACTIVE TOOL";
+        fraudStatusBadge.classList.add("active");
+      }
+      if (newsStatusBadge) {
+        newsStatusBadge.textContent = "SELECT TOOL ➔";
+        newsStatusBadge.classList.remove("active");
+      }
+      if (workspaceTabBanner) {
+        workspaceTabBanner.className = "tab-banner tab-yellow";
+        workspaceTabBanner.innerHTML = "<span>★ 02</span> MESSAGE SAFETY";
+      }
       if (detectTitle) detectTitle.textContent = "Message & Fraud Safety";
       if (detectSubtitle)
         detectSubtitle.textContent =
@@ -103,13 +162,61 @@
       analyzeBtn.textContent = "Check Message Safety ★";
       if (newsSamples) newsSamples.classList.add("hidden");
       if (fraudSamples) fraudSamples.classList.remove("hidden");
+      const s1 = $("#spinnerStep1");
+      const s2 = $("#spinnerStep2");
+      const s3 = $("#spinnerStep3");
+      if (s1) s1.textContent = "🔍 Extracting URLs, contacts & scam lever patterns…";
+      if (s2) s2.textContent = "🛡️ Checking threat reputation & known fraud vectors…";
+      if (s3) s3.textContent = "★ Calculating risk score & safety advice…";
     }
     resultCard.classList.add("hidden");
     errorBox.classList.add("hidden");
+    updateNavActive();
+    if (scroll) {
+      const target = document.getElementById("toolWorkspace") || document.getElementById("detect");
+      if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   }
 
-  if (modeNewsBtn) modeNewsBtn.addEventListener("click", () => setMode("news"));
-  if (modeFraudBtn) modeFraudBtn.addEventListener("click", () => setMode("fraud"));
+  if (featureNewsCard) featureNewsCard.addEventListener("click", () => setMode("news"));
+  if (featureFraudCard) featureFraudCard.addEventListener("click", () => setMode("fraud"));
+
+  $$("[data-feature]").forEach((el) => {
+    el.addEventListener("click", (e) => {
+      e.preventDefault();
+      const feat = el.getAttribute("data-feature");
+      setMode(feat, true);
+      history.replaceState(null, "", `#${feat}`);
+    });
+  });
+
+  const heroNewsCta = $("#heroNewsCta");
+  const heroFraudCta = $("#heroFraudCta");
+  if (heroNewsCta) {
+    heroNewsCta.addEventListener("click", (e) => {
+      e.preventDefault();
+      setMode("news", true);
+      history.replaceState(null, "", "#news");
+    });
+  }
+  if (heroFraudCta) {
+    heroFraudCta.addEventListener("click", (e) => {
+      e.preventDefault();
+      setMode("fraud", true);
+      history.replaceState(null, "", "#fraud");
+    });
+  }
+
+  function applyHashFeature() {
+    const hash = window.location.hash.toLowerCase();
+    if (hash === "#fraud" || hash === "#message-safety" || hash === "#message") {
+      setMode("fraud");
+    } else if (hash === "#news" || hash === "#claim" || hash === "#detect") {
+      setMode("news");
+    }
+  }
+  window.addEventListener("hashchange", applyHashFeature);
+  applyHashFeature();
 
   newsInput.addEventListener("input", () => {
     charCount.textContent = `${newsInput.value.length} / 8000`;
@@ -460,6 +567,13 @@
   }
 
   function restoreEntry(entry) {
+    if (entry.mode) {
+      setMode(entry.mode);
+    } else if (entry.result && (entry.result.risk_level || entry.result.risk_score !== undefined)) {
+      setMode("fraud");
+    } else {
+      setMode("news");
+    }
     newsInput.value = entry.text || "";
     newsInput.dispatchEvent(new Event("input"));
     if (entry.result && entry.result.verdict) {
@@ -553,245 +667,7 @@
     });
   });
 
-  /* ============================================================ QUIZ */
-  const QUESTIONS = [
-    {
-      q: "What should you check first when you see suspicious news?",
-      options: ["Source", "Font", "Emojis", "Comments"],
-      answer: 0,
-    },
-    {
-      q: "A headline says 'You won't believe…'. What technique is this?",
-      options: ["Citation", "Clickbait", "Summarising", "Editorial review"],
-      answer: 1,
-    },
-    {
-      q: "Why is the publication date of an article important?",
-      options: [
-        "It affects the page layout",
-        "Old stories can be reshared out of context",
-        "Longer articles rank higher",
-        "Dates prove the headline is accurate",
-      ],
-      answer: 1,
-    },
-    {
-      q: "What is the strongest sign that a claim has supporting evidence?",
-      options: [
-        "It uses ALL CAPS",
-        "It has many exclamation marks",
-        "It links to primary data or named experts",
-        "A celebrity shared it",
-      ],
-      answer: 2,
-    },
-    {
-      q: "Before sharing a shocking story, you should:",
-      options: [
-        "Share it immediately so friends can check",
-        "Compare it with other reliable sources",
-        "Add your own opinion in the caption",
-        "Delete the original link",
-      ],
-      answer: 1,
-    },
-    {
-      q: "What does 'cross-checking' mean in media literacy?",
-      options: [
-        "Reading the story twice",
-        "Checking comments for facts",
-        "Verifying the same claim across multiple reliable outlets",
-        "Comparing font styles between sites",
-      ],
-      answer: 2,
-    },
-    {
-      q: "Which is a red flag that an article may be misleading?",
-      options: [
-        "Named author with citations",
-        "Emotional language with no evidence",
-        "A correction note at the bottom",
-        "Quotes from officials",
-      ],
-      answer: 1,
-    },
-    {
-      q: "Why should you read beyond the headline?",
-      options: [
-        "Headlines are often shortened and can distort the story",
-        "Longer reads are always correct",
-        "It increases the website's views",
-        "Headlines never change meaning",
-      ],
-      answer: 0,
-    },
-    {
-      q: "Who is most responsible for verifying information before you repost it?",
-      options: ["The group chat", "The platform algorithm", "You, the sharer", "The first commenter"],
-      answer: 2,
-    },
-    {
-      q: "An article gives no author, no date and no sources. Best next step?",
-      options: [
-        "Trust it if it looks professional",
-        "Treat it cautiously and verify elsewhere",
-        "Share it with a warning emoji",
-        "Assume it is satire",
-      ],
-      answer: 1,
-    },
-  ];
 
-  let quizIndex = 0;
-  let quizAnswers = new Array(QUESTIONS.length).fill(null);
-
-  const quizQView = $("#quizQuestionView");
-  const quizRView = $("#quizResultView");
-  const quizReviewView = $("#quizReviewView");
-  const quizPrevBtn = $("#quizPrevBtn");
-  const quizNextBtn = $("#quizNextBtn");
-  const quizMsg = $("#quizMsg");
-
-  function renderQuestion() {
-    const item = QUESTIONS[quizIndex];
-    $("#quizProgress").textContent = `Question ${quizIndex + 1} / ${QUESTIONS.length}`;
-    $("#quizBarFill").style.width = `${((quizIndex + 1) / QUESTIONS.length) * 100}%`;
-    $("#quizQuestionText").textContent = item.q;
-    quizMsg.classList.add("hidden");
-
-    const box = $("#quizOptions");
-    box.innerHTML = "";
-    item.options.forEach((opt, i) => {
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "quiz-option" + (quizAnswers[quizIndex] === i ? " selected" : "");
-      btn.setAttribute("role", "radio");
-      btn.setAttribute("aria-checked", String(quizAnswers[quizIndex] === i));
-      const radio = document.createElement("span");
-      radio.className = "radio";
-      radio.setAttribute("aria-hidden", "true");
-      radio.textContent = String.fromCharCode(65 + i); // A / B / C / D
-      btn.append(radio, document.createTextNode(opt));
-      btn.addEventListener("click", () => {
-        quizAnswers[quizIndex] = i;
-        quizMsg.classList.add("hidden");
-        renderQuestion();
-      });
-      box.appendChild(btn);
-    });
-
-    quizPrevBtn.disabled = quizIndex === 0;
-    // Next stays enabled so an unanswered click can show the validation message.
-    quizNextBtn.disabled = false;
-    quizNextBtn.textContent = quizIndex === QUESTIONS.length - 1 ? "Submit" : "Next";
-  }
-
-  quizPrevBtn.addEventListener("click", () => {
-    if (quizIndex > 0) { quizIndex -= 1; renderQuestion(); }
-  });
-
-  quizNextBtn.addEventListener("click", () => {
-    if (quizAnswers[quizIndex] === null) {
-      quizMsg.classList.remove("hidden");
-      return;
-    }
-    quizMsg.classList.add("hidden");
-    if (quizIndex < QUESTIONS.length - 1) {
-      quizIndex += 1;
-      renderQuestion();
-    } else {
-      submitQuiz();
-    }
-  });
-
-  function computeScore() {
-    return QUESTIONS.reduce((acc, q, i) => acc + (quizAnswers[i] === q.answer ? 1 : 0), 0);
-  }
-
-  function submitQuiz() {
-    const score = computeScore();
-    const total = QUESTIONS.length;
-    const pct = Math.round((score / total) * 100);
-
-    let label, msg;
-    const short = `You answered ${score} of ${total} correctly.`;
-    if (pct >= 90) {
-      label = "Media Literacy: Excellent";
-      msg = `${short} Sharp instincts.`;
-    } else if (pct >= 70) {
-      label = "Media Literacy: Good";
-      msg = `${short} Solid foundation.`;
-    } else if (pct >= 50) {
-      label = "Media Literacy: Developing";
-      msg = `${short} Review the six checks, then retry.`;
-    } else {
-      label = "Media Literacy: Needs Practice";
-      msg = `${short} Try the Learn section first.`;
-    }
-
-    quizQView.classList.add("hidden");
-    quizReviewView.classList.add("hidden");
-    quizRView.classList.remove("hidden");
-    $("#scoreFraction").textContent = `${score} / ${total}`;
-    $("#scorePercent").textContent = `${pct}%`;
-    $("#scoreRing").style.setProperty("--pct", String(pct));
-    $("#scoreLabel").textContent = label;
-    $("#scoreMessage").textContent = msg;
-  }
-
-  function renderReview() {
-    const list = $("#reviewList");
-    list.innerHTML = "";
-    QUESTIONS.forEach((q, i) => {
-      const li = document.createElement("li");
-      const correct = quizAnswers[i] === q.answer;
-      li.className = `review-item ${correct ? "is-correct" : "is-wrong"}`;
-
-      const head = document.createElement("div");
-      head.className = "review-head";
-      const num = document.createElement("span");
-      num.className = "review-num";
-      num.textContent = String(i + 1).padStart(2, "0");
-      const mark = document.createElement("span");
-      mark.className = "review-mark";
-      mark.textContent = correct ? "Correct" : "Incorrect";
-      mark.setAttribute("aria-hidden", "true");
-      head.append(num, mark);
-
-      const qEl = document.createElement("p");
-      qEl.className = "review-q";
-      qEl.textContent = q.q;
-
-      const ans = document.createElement("p");
-      ans.className = "review-ans";
-      const yours = quizAnswers[i] === null ? "— not answered" : q.options[quizAnswers[i]];
-      ans.textContent = `Your answer: ${yours} · Correct: ${q.options[q.answer]}`;
-
-      li.append(head, qEl, ans);
-      list.appendChild(li);
-    });
-  }
-
-  $("#quizReviewBtn").addEventListener("click", () => {
-    renderReview();
-    quizRView.classList.add("hidden");
-    quizReviewView.classList.remove("hidden");
-  });
-  $("#quizBackBtn").addEventListener("click", () => {
-    quizReviewView.classList.add("hidden");
-    quizRView.classList.remove("hidden");
-  });
-
-  function retryQuiz() {
-    quizIndex = 0;
-    quizAnswers = new Array(QUESTIONS.length).fill(null);
-    quizRView.classList.add("hidden");
-    quizReviewView.classList.add("hidden");
-    quizQView.classList.remove("hidden");
-    renderQuestion();
-  }
-  $("#quizRetryBtn").addEventListener("click", retryQuiz);
-  $("#quizRetryBtn2").addEventListener("click", retryQuiz);
 
   /* ====================================================== FOOTER DLG */
   $$("[data-dialog]").forEach((btn) => {
@@ -837,6 +713,5 @@
   }
 
   /* =========================================================== INIT */
-  renderQuestion();
   renderHistory();
 })();

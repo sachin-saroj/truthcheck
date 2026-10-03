@@ -27,9 +27,9 @@
     <div class="header-inner">
       <a class="wordmark sticker-logo" href="#top">Truth<span>Check</span><i class="logo-dot" aria-hidden="true"></i></a>
       <nav class="nav-links" aria-label="Section navigation">
-        <a href="#detect" data-nav><span class="nav-num">01</span>▶ Detect</a>
-        <a href="#learn" data-nav><span class="nav-num">02</span>✎ Learn</a>
-        <a href="#quiz" data-nav><span class="nav-num">03</span>? Quiz</a>
+        <a href="#news" data-nav data-feature="news"><span class="nav-num">01</span>📰 News &amp; Claim</a>
+        <a href="#fraud" data-nav data-feature="fraud"><span class="nav-num">02</span>🛡️ Message Safety</a>
+        <a href="#learn" data-nav><span class="nav-num">03</span>✎ Learn</a>
         <a href="#history" data-nav><span class="nav-num">04</span>↺ History</a>
       </nav>
       <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
@@ -62,7 +62,8 @@
         <p class="hero-hand">real-world news &amp; fact verification · live search evidence · Qwen 3.8 AI reasoning</p>
 
         <div class="hero-cta">
-          <a class="btn btn-chunk btn-yellow" href="#detect">★ Check News / Claim</a>
+          <a class="btn btn-chunk btn-yellow" href="#news" id="heroNewsCta">📰 Check News &amp; Claim</a>
+          <a class="btn btn-chunk btn-ghost" href="#fraud" id="heroFraudCta">🛡️ Check Message Safety</a>
           <a class="btn btn-chunk btn-ghost" href="#how">How it works</a>
         </div>
         <p class="hero-disclaimer">grounded in real-time internet reporting and AI source comparison.</p>
@@ -86,24 +87,59 @@
       </div>
     </section>
 
-    <!-- ================= DETECTOR ================= -->
+    <!-- ================= VERIFICATION SUITE ================= -->
     <section class="section" id="detect">
       <div class="container">
-        <header class="section-head reveal">
-          <div class="tab-banner tab-red"><span>★ 01</span> DETECT</div>
-          <div class="section-titles">
-            <h2 id="detectTitle">Real-world Fact Checker</h2>
-            <p class="hand-sub" id="detectSubtitle">News detector &amp; fact verifier — paste any news headline, tweet, viral post, or fact claim…</p>
-          </div>
-          <div class="mode-toggle-container" role="tablist" aria-label="Detection Mode">
-            <button type="button" class="btn-mode active" id="modeNewsBtn" role="tab" aria-selected="true">
-              <span class="mode-icon">📰</span> News &amp; Claim
-            </button>
-            <button type="button" class="btn-mode" id="modeFraudBtn" role="tab" aria-selected="false">
-              <span class="mode-icon">🛡️</span> Message Safety
-            </button>
-          </div>
-        </header>
+        <!-- TWO FIRST-CLASS FEATURE SELECTOR CARDS -->
+        <div class="feature-deck reveal" role="tablist" aria-label="TruthCheck Verification Tools">
+          <button type="button" class="feature-card active" id="featureNewsCard" role="tab" aria-selected="true" aria-controls="toolWorkspace" tabindex="0">
+            <div class="tape tape-yellow tape-tl" aria-hidden="true"></div>
+            <div class="feature-card-badge-row">
+              <span class="feature-pill">TOOL 01 · PUBLIC INFO</span>
+              <span class="feature-status-badge active" id="newsStatusBadge">● ACTIVE TOOL</span>
+            </div>
+            <div class="feature-card-content">
+              <div class="feature-icon-wrapper" aria-hidden="true">📰</div>
+              <div class="feature-info">
+                <h3 class="feature-name">News &amp; Claim</h3>
+                <p class="feature-desc">Verify news headlines, factual claims, and viral posts with live search evidence &amp; AI reasoning.</p>
+              </div>
+            </div>
+            <div class="feature-card-meta">
+              <span class="feature-meta-tag">Live Search Evidence</span>
+              <span class="feature-meta-tag">Verdict &amp; Citations</span>
+            </div>
+          </button>
+
+          <button type="button" class="feature-card" id="featureFraudCard" role="tab" aria-selected="false" aria-controls="toolWorkspace" tabindex="0">
+            <div class="tape tape-blue tape-tr" aria-hidden="true"></div>
+            <div class="feature-card-badge-row">
+              <span class="feature-pill">TOOL 02 · PRIVATE MESSAGES</span>
+              <span class="feature-status-badge" id="fraudStatusBadge">SELECT TOOL ➔</span>
+            </div>
+            <div class="feature-card-content">
+              <div class="feature-icon-wrapper" aria-hidden="true">🛡️</div>
+              <div class="feature-info">
+                <h3 class="feature-name">Message Safety</h3>
+                <p class="feature-desc">Scan suspicious SMS, WhatsApp messages, phishing links, bank alerts, and urgent payment requests.</p>
+              </div>
+            </div>
+            <div class="feature-card-meta">
+              <span class="feature-meta-tag">Scam Lever Detection</span>
+              <span class="feature-meta-tag">Risk Score &amp; Advice</span>
+            </div>
+          </button>
+        </div>
+
+        <!-- ACTIVE TOOL WORKSPACE -->
+        <div class="tool-workspace" id="toolWorkspace">
+          <header class="workspace-header reveal">
+            <div class="tab-banner tab-red" id="workspaceTabBanner"><span>★ 01</span> NEWS VERIFIER</div>
+            <div class="section-titles">
+              <h2 id="detectTitle">Real-world Fact Checker</h2>
+              <p class="hand-sub" id="detectSubtitle">News detector &amp; fact verifier — paste any news headline, tweet, viral post, or fact claim…</p>
+            </div>
+          </header>
 
         <div class="detector clip-card reveal">
           <div class="tape tape-blue tape-l" aria-hidden="true"></div>
@@ -212,6 +248,8 @@
           </footer>
         </article>
 
+        <!-- close tool-workspace -->
+        </div>
       </div>
     </section>
 
@@ -219,7 +257,7 @@
     <section class="section section-cream" id="learn">
       <div class="container">
         <header class="section-head reveal">
-          <div class="tab-banner tab-blue"><span>★ 02</span> LEARN</div>
+          <div class="tab-banner tab-blue"><span>★ 03</span> LEARN</div>
           <div class="section-titles">
             <h2>Media literacy</h2>
             <p class="hand-sub">six checks before you believe — or share!</p>
@@ -438,61 +476,7 @@
       </div>
     </section>
 
-    <!-- ================= QUIZ ================= -->
-    <section class="section section-ink" id="quiz">
-      <div class="container container-narrow">
-        <header class="section-head reveal">
-          <div class="tab-banner tab-yellow"><span>★ 03</span> QUIZ</div>
-          <div class="section-titles">
-            <h2 class="on-ink">Quiz</h2>
-            <p class="hand-sub on-ink-hand">ten questions — how sharp are you?</p>
-          </div>
-        </header>
 
-        <div class="quiz clip-card reveal" id="quizCard">
-          <div class="tape tape-yellow tape-c" aria-hidden="true"></div>
-          <div id="quizQuestionView">
-            <div class="quiz-top">
-              <span class="mono-meta" id="quizProgress">Question 1 / 10</span>
-              <div class="quiz-bar" aria-hidden="true"><span id="quizBarFill"></span></div>
-            </div>
-            <h3 class="quiz-question" id="quizQuestionText"></h3>
-            <div class="quiz-options" id="quizOptions" role="radiogroup" aria-label="Answer options"></div>
-            <p class="quiz-msg hidden" id="quizMsg" role="alert">Please select an answer.</p>
-            <div class="quiz-actions">
-              <button class="btn btn-chunk btn-ghost" id="quizPrevBtn" type="button">← Previous</button>
-              <button class="btn btn-chunk btn-black" id="quizNextBtn" type="button">Next →</button>
-            </div>
-          </div>
-
-          <div class="quiz-result hidden" id="quizResultView">
-            <p class="hand-label">quiz complete! ★</p>
-            <div class="score" id="scoreRing">
-              <div class="score-figures">
-                <strong id="scoreFraction">0 / 10</strong>
-                <span class="mono-meta" id="scorePercent">0%</span>
-              </div>
-              <div class="score-bar" aria-hidden="true"></div>
-            </div>
-            <h3 class="score-label" id="scoreLabel">Media Literacy: —</h3>
-            <p class="score-message" id="scoreMessage"></p>
-            <div class="quiz-result-actions">
-              <button class="btn btn-chunk btn-ghost" id="quizReviewBtn" type="button">Review Results</button>
-              <button class="btn btn-chunk btn-yellow" id="quizRetryBtn" type="button">Retry Quiz ↺</button>
-            </div>
-          </div>
-
-          <div class="quiz-review hidden" id="quizReviewView">
-            <p class="hand-label">review ✎</p>
-            <ol class="review-list" id="reviewList"></ol>
-            <div class="quiz-actions">
-              <button class="btn btn-chunk btn-ghost" id="quizBackBtn" type="button">← Back to Score</button>
-              <button class="btn btn-chunk btn-yellow" id="quizRetryBtn2" type="button">Retry Quiz ↺</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <!-- ================= HISTORY ================= -->
     <section class="section" id="history">

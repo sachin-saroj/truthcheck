@@ -10,7 +10,7 @@
   <img src="https://img.shields.io/badge/Framework-Flask%203.0-lightgrey?style=for-the-badge&logo=flask&logoColor=white" alt="Flask" />
   <img src="https://img.shields.io/badge/AI%20Model-Google%20Gemini%20Flash-4285F4?style=for-the-badge&logo=google&logoColor=white" alt="Gemini AI" />
   <img src="https://img.shields.io/badge/Search-DuckDuckGo%20Live-orange?style=for-the-badge&logo=duckduckgo&logoColor=white" alt="DuckDuckGo" />
-  <img src="https://img.shields.io/badge/Tests-56%20Passed-brightgreen?style=for-the-badge&logo=pytest&logoColor=white" alt="Tests" />
+  <img src="https://img.shields.io/badge/Tests-80%20Passed-brightgreen?style=for-the-badge&logo=pytest&logoColor=white" alt="Tests" />
   <img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="License" />
 </p>
 
@@ -68,17 +68,14 @@ Media literacy is the first line of defense against online misinformation. Truth
 
 ---
 
-### 3. 🎯 Gamified Verification Quiz
+### 3. 🛡️ Message & Fraud Safety Engine
 
-A 10-question scenario-based quiz designed to train users in identifying clickbait, deceptive framing, and verification techniques:
+A dedicated scanning pipeline for private messages, SMS, WhatsApp alerts, and payment requests to detect phishing and financial scams:
 
-<p align="center">
-  <img src="docs/assets/04_interactive_quiz.png" alt="TruthCheck Interactive Quiz Preview" width="100%" style="border-radius: 10px; border: 2px solid #111; box-shadow: 0 8px 24px rgba(0,0,0,0.12);" />
-</p>
-
-- Real-time feedback and explanation for each question.
-- Comprehensive score summary and complete answer review.
-- Retry mode for continuous learning.
+- **6 Deterministic Scam Levers:** Real-time heuristic scoring of urgency hooks, financial keywords, banking triggers, payment redirection, suspicious contact info, and authority impersonation.
+- **Threat Reputation & URL Safety:** Heuristic and Google Web Risk API lookup to flag dangerous domains and typo-squatted links.
+- **Scam Vector Matching:** Cosine vector similarity matching against known scam playbooks (e.g., Bank KYC PAN blocks, UPI collect traps, electricity disconnection, fake Telegram jobs).
+- **Clear Safety Guidance:** Direct risk score (0–100), severity level (`LOW_RISK`, `SUSPICIOUS`, `HIGH_RISK`, `CRITICAL`), verification status, and actionable recommendations.
 
 ---
 
@@ -144,7 +141,7 @@ TruthCheck provides an instant browser-local audit trail of all claims analyzed,
 | **Stylistic Manipulation Detection** | ✅ Good at text patterns | ⚠️ Inconsistent pattern scoring | ✅ **Deterministic regex + ML score** |
 | **Evidence Transparency** | ❌ Black-box percentage | ⚠️ Hallucinated URLs possible | ✅ **Direct clickable source links** |
 | **Response Latency** | ⚡ Fast (< 50ms) | 🐢 Slow (4–10s) | ⚡ **Fast Flash reasoning (~1.2s)** |
-| **Educational Impact** | ❌ Just gives a number | ⚠️ Long generic text | ✅ **Interactive Case Studies & Quiz** |
+| **Educational Impact** | ❌ Just gives a number | ⚠️ Long generic text | ✅ **Interactive Case Studies & Media Literacy** |
 
 ---
 
